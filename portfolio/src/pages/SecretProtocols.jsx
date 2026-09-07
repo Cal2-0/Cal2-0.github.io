@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { ArrowLeft, Terminal, ShieldAlert, Zap, Compass, Film, Cpu, Utensils, Gauge, HelpCircle, Image as ImageIcon, Volume2, Shield, Lock } from 'lucide-react';
+import React, { useEffect, useState, useCallback } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { ArrowLeft, Terminal, ShieldAlert, Zap, Compass, Film, Cpu, Utensils, Gauge, HelpCircle, Image as ImageIcon, Volume2, Shield, Lock, X } from 'lucide-react';
 import '../styles/scenes/vault.css';
 
 import { VaultSecrets } from '../components/vault/VaultSecrets';
@@ -12,8 +12,7 @@ import { VaultGarage } from '../components/vault/VaultGarage';
 import { VaultQuiz } from '../components/vault/VaultQuiz';
 
 const TABS = [
-  { id: 'GAME', label: '🕹️ MINI-GAME', icon: Zap },
-  { id: 'GARAGE', label: '🏎️ 120+ GARAGE', icon: Gauge },
+  { id: 'GARAGE', label: '🏎️ 128+ GARAGE', icon: Gauge },
   { id: 'CINEMA', label: '🎬 CINEMA DB', icon: Film },
   { id: 'HARDWARE', label: '💻 HARDWARE', icon: Cpu },
   { id: 'FOOD', label: '🍕 CULINARY', icon: Utensils },
@@ -21,13 +20,40 @@ const TABS = [
   { id: 'SYSTEM', label: '⚡ OVERRIDES', icon: Terminal },
 ];
 
+// Secret key combo to unlock the hidden mini-game: ← → ← → ↑ ↓
+const GAME_COMBO = ['ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'];
+
 const SecretProtocols = () => {
-  const [activeTab, setActiveTab] = useState('GAME');
+  const [activeTab, setActiveTab] = useState('GARAGE');
   const [isAuditActive, setIsAuditActive] = useState(false);
+  const [gameUnlocked, setGameUnlocked] = useState(false);
+  const [gameToast, setGameToast] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
     setIsAuditActive(document.body.classList.contains('audit-mode'));
+  }, []);
+
+  // Secret key combo listener for hidden mini-game
+  useEffect(() => {
+    let keyBuffer = [];
+    const handleKeyDown = (e) => {
+      if (['INPUT', 'TEXTAREA'].includes(e.target?.tagName)) return;
+
+      keyBuffer.push(e.key);
+      keyBuffer = keyBuffer.slice(-GAME_COMBO.length);
+
+      if (keyBuffer.length === GAME_COMBO.length && 
+          keyBuffer.every((k, i) => k === GAME_COMBO[i])) {
+        setGameUnlocked(true);
+        setActiveTab('GAME');
+        setGameToast(true);
+        setTimeout(() => setGameToast(false), 3500);
+        keyBuffer = [];
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
   const toggleAudit = () => {
@@ -94,9 +120,18 @@ const SecretProtocols = () => {
               {tab.label}
             </button>
           ))}
+          {gameUnlocked && (
+            <button
+              onClick={() => setActiveTab('GAME')}
+              className={`vault-tab-btn ${activeTab === 'GAME' ? 'active' : ''}`}
+              style={{ color: '#00ffcc', borderColor: activeTab === 'GAME' ? '#00ffcc' : 'transparent' }}
+            >
+              🕹️ CYBER MAZE
+            </button>
+          )}
         </div>
 
-        {/* TAB 1: MINI GAME */}
+        {/* TAB 8 (HIDDEN): RETRO CYBER MAZE */}
         {activeTab === 'GAME' && <VaultGame />}
 
         {/* TAB 2: CINEMA DATABASE & RANDOMIZER */}
@@ -149,9 +184,9 @@ const SecretProtocols = () => {
                     borderRadius: '6px'
                   }}
                 >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                    <ShieldAlert size={26} color={isAuditActive ? '#ff3333' : '#C5A880'} />
-                    <div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flex: 1, minWidth: 0 }}>
+                    <ShieldAlert size={26} color={isAuditActive ? '#ff3333' : '#C5A880'} style={{ flexShrink: 0 }} />
+                    <div style={{ paddingRight: '12px' }}>
                       <div style={{ fontSize: '0.95rem', fontWeight: 'bold', color: isAuditActive ? '#ff3333' : '#FFF' }}>
                         RED TEAM AUDIT MODE
                       </div>
@@ -165,7 +200,9 @@ const SecretProtocols = () => {
                     padding: '6px 12px', 
                     border: `1px solid ${isAuditActive ? '#ff3333' : '#C5A880'}`,
                     color: isAuditActive ? '#ff3333' : '#C5A880',
-                    fontWeight: 'bold'
+                    fontWeight: 'bold',
+                    whiteSpace: 'nowrap',
+                    flexShrink: 0
                   }}>
                     {isAuditActive ? 'RESTORE' : 'ENGAGE'}
                   </span>
@@ -187,9 +224,9 @@ const SecretProtocols = () => {
                     borderRadius: '6px'
                   }}
                 >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                    <Terminal size={26} color="#00ff00" />
-                    <div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flex: 1, minWidth: 0 }}>
+                    <Terminal size={26} color="#00ff00" style={{ flexShrink: 0 }} />
+                    <div style={{ paddingRight: '12px' }}>
                       <div style={{ fontSize: '0.95rem', fontWeight: 'bold', color: '#FFF' }}>
                         BUREAU ROOT TERMINAL
                       </div>
@@ -198,7 +235,44 @@ const SecretProtocols = () => {
                       </div>
                     </div>
                   </div>
-                  <span style={{ fontSize: '0.75rem', padding: '6px 12px', border: '1px solid #00ff00', color: '#00ff00', fontWeight: 'bold' }}>
+                  <span style={{ fontSize: '0.75rem', padding: '6px 12px', border: '1px solid #00ff00', color: '#00ff00', fontWeight: 'bold', whiteSpace: 'nowrap', flexShrink: 0 }}>
+                    LAUNCH
+                  </span>
+                </div>
+
+                {/* Cyber Maze Override */}
+                <div 
+                  onClick={() => {
+                    setGameUnlocked(true);
+                    setActiveTab('GAME');
+                    setGameToast(true);
+                    setTimeout(() => setGameToast(false), 3500);
+                  }}
+                  style={{
+                    border: '1px solid rgba(197, 168, 128, 0.3)',
+                    backgroundColor: 'rgba(20, 20, 26, 0.6)',
+                    padding: '20px',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    fontFamily: 'var(--font-mono)',
+                    borderRadius: '6px'
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flex: 1, minWidth: 0 }}>
+                    <Zap size={26} color="#00ffcc" style={{ flexShrink: 0 }} />
+                    <div style={{ paddingRight: '12px' }}>
+                      <div style={{ fontSize: '0.95rem', fontWeight: 'bold', color: '#FFF' }}>
+                        CYBER MAZE BYPASS
+                      </div>
+                      <div style={{ fontSize: '0.75rem', color: '#8E8D8A', marginTop: '3px' }}>
+                        Directly launch the hidden retro game without the secret key combination (← → ← → ↑ ↓).
+                      </div>
+                    </div>
+                  </div>
+                  <span style={{ fontSize: '0.75rem', padding: '6px 12px', border: '1px solid #00ffcc', color: '#00ffcc', fontWeight: 'bold', whiteSpace: 'nowrap', flexShrink: 0 }}>
                     LAUNCH
                   </span>
                 </div>
@@ -307,6 +381,58 @@ const SecretProtocols = () => {
         )}
 
       </div>
+
+      {/* HIDDEN MINI-GAME FULLSCREEN OVERLAY REMOVED (Now a normal tab) */}
+
+      {/* Game Unlock Toast */}
+      {gameToast && (
+        <div style={{
+          position: 'fixed',
+          top: '20px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          zIndex: 100001,
+          background: 'rgba(10, 10, 15, 0.95)',
+          border: '1px solid #00ffcc',
+          color: '#00ffcc',
+          padding: '10px 24px',
+          borderRadius: '4px',
+          fontFamily: 'var(--font-mono, monospace)',
+          fontSize: '0.82rem',
+          fontWeight: 'bold',
+          letterSpacing: '1px',
+          boxShadow: '0 0 30px rgba(0, 255, 204, 0.4)',
+          backdropFilter: 'blur(10px)',
+          animation: 'fadeIn 0.25s ease-out'
+        }}>
+          [ 🕹️ CYBER MAZE UNLOCKED: PROTOCOL 7 ENGAGED ]
+        </div>
+      )}
+
+      <style>{`
+        @keyframes gameOverlayIn {
+          from {
+            opacity: 0;
+            transform: scale(0.97);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+        @keyframes fadeSlideDown {
+          from { opacity: 0; transform: translateY(-15px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeSlideUp {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+      `}</style>
     </div>
   );
 };

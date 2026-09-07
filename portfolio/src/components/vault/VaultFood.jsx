@@ -33,6 +33,9 @@ export const VaultFood = () => {
           <p style={{ color: 'var(--color-silver, #8E8D8A)', fontFamily: 'var(--font-mono)', fontSize: '0.78rem', margin: '4px 0 0 0' }}>
             Personal food preferences, vetted restaurant targets & the master India culinary road trip mission.
           </p>
+          <p style={{ color: '#8E8D8A', fontFamily: 'var(--font-mono)', fontSize: '0.76rem', margin: '8px 0 0 0', lineHeight: 1.5, maxWidth: '580px', fontStyle: 'italic', borderLeft: '2px solid var(--color-gold, #C5A880)', paddingLeft: '12px' }}>
+            "I'm a real chef — born and raised in a kitchen. Huge foodie. Cooking for people I love is one of the things that makes me happiest. Culinary arts isn't a hobby, it's a calling."
+          </p>
         </div>
 
         <div style={{ display: 'flex', gap: '8px' }}>

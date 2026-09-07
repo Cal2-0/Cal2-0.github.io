@@ -204,6 +204,9 @@ export const VaultGarage = () => {
             <h2 style={{ fontFamily: 'var(--font-display, serif)', fontSize: 'clamp(1.6rem, 3.5vw, 2.2rem)', color: '#FFF', margin: '4px 0 0 0', fontWeight: 500 }}>
               Calvin's 5-Bay Classified Garage
             </h2>
+            <p style={{ color: '#8E8D8A', fontFamily: 'var(--font-mono)', fontSize: '0.76rem', margin: '8px 0 0 0', lineHeight: 1.5, maxWidth: '520px', fontStyle: 'italic', borderLeft: '2px solid var(--color-gold, #C5A880)', paddingLeft: '12px' }}>
+              "Why 128+ cars? I love cars. My passion for cars is something crazy — it's not about flexing, it's a genuine obsession with engineering, design, and the sound of a flat-plane crank V8 at 9,000 RPM."
+            </p>
           </div>
 
           {/* Master Telemetry Stats Grid */}

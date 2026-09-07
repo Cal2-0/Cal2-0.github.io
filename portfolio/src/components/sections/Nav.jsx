@@ -47,6 +47,9 @@ const Nav = ({ onTransmitClick }) => {
     if (onTransmitClick) onTransmitClick();
   };
 
+  const isStandalonePage = ['/classified', '/vault', '/protocols'].includes(location.pathname);
+  if (isStandalonePage) return null;
+
   return (
     <header className="bureau-nav" ref={navRef}>
       {/* Covert F1 Trigger to Secret Protocols — Extreme Left, No Box */}

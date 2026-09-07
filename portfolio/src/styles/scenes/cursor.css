@@ -37,7 +37,37 @@
   a, button, .archive-item, .tx-card, .record-card {
     cursor: none;
   }
+
+  /* Restore native text and pointer cursor when terminal overlay is active */
+  body.terminal-open,
+  body.terminal-open * {
+    cursor: auto !important;
+  }
+
+  body.terminal-open .terminal-overlay-container,
+  body.terminal-open .terminal-body,
+  body.terminal-open .terminal-line,
+  body.terminal-open .terminal-input {
+    cursor: text !important;
+  }
+
+  body.terminal-open button,
+  body.terminal-open .terminal-chip,
+  body.terminal-open .terminal-light,
+  body.terminal-open .terminal-btn {
+    cursor: pointer !important;
+  }
 }
+
+/* Hide decorative cursor when terminal is active */
+body.terminal-open .bureau-cursor,
+body.terminal-open .bureau-cursor-trail {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
 
 /* On touch devices, restore native cursor and hide custom cursor */
 @media (hover: none), (pointer: coarse) {

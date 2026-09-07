@@ -86,6 +86,9 @@ export const VaultCinema = () => {
           <p style={{ color: 'var(--color-silver, #8E8D8A)', fontFamily: 'var(--font-mono)', fontSize: '0.78rem', margin: '4px 0 0 0' }}>
             Curated database of all-time favorite comedies, thrillers, sci-fi epics & guilty pleasures.
           </p>
+          <p style={{ color: '#8E8D8A', fontFamily: 'var(--font-mono)', fontSize: '0.76rem', margin: '8px 0 0 0', lineHeight: 1.5, maxWidth: '580px', fontStyle: 'italic', borderLeft: '2px solid var(--color-gold, #C5A880)', paddingLeft: '12px' }}>
+            "I'm a massive cinephile. One of my craziest facts? In 7 days, I watched 35 movies — that's 5 movies a day. I don't just watch films — I study the cinematography, the sound design, the editing rhythm. Cinema is art."
+          </p>
         </div>
 
         <button

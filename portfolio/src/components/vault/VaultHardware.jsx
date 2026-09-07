@@ -145,6 +145,9 @@ export const VaultHardware = () => {
           <p style={{ color: 'var(--color-silver, #8E8D8A)', fontFamily: 'var(--font-mono)', fontSize: '0.78rem', margin: '4px 0 0 0' }}>
             Primary combat workstation architecture alongside live hardware discovery from your client browser.
           </p>
+          <p style={{ color: '#8E8D8A', fontFamily: 'var(--font-mono)', fontSize: '0.76rem', margin: '8px 0 0 0', lineHeight: 1.5, maxWidth: '580px', fontStyle: 'italic', borderLeft: '2px solid var(--color-gold, #C5A880)', paddingLeft: '12px' }}>
+            "I'm a huge geek. I love hardware — the smell of thermal paste, the click of a mechanical keyboard, benchmarking GPUs at 3 AM. Building systems is my therapy."
+          </p>
         </div>
 
         {/* View Mode Controls */}

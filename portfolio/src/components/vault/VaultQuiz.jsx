@@ -228,6 +228,205 @@ const QUESTIONS = [
   }
 ];
 
+const PERSONAL_QUESTIONS = [
+  {
+    id: 'p1',
+    category: "EMOTIONAL PROTOCOL",
+    question: "If Calvin is feeling sad and depressed and wants a fun night out, what does he do?",
+    options: [
+      {
+        text: "Go out with friends to a crowded party",
+        isCorrect: false,
+        breakdown: "INCORRECT: While Calvin loves his friends, when he's feeling low he prefers solo recharging."
+      },
+      {
+        text: "Go to a really good luxury restaurant",
+        isCorrect: false,
+        breakdown: "INCORRECT: Calvin is a massive foodie, but food isn't his go-to therapy when he's feeling down."
+      },
+      {
+        text: "Just watch a marathon of comedy movies",
+        isCorrect: true,
+        breakdown: "CORRECT: \"When I'm feeling down, nothing fixes it like a comedy marathon. I'll binge 3-4 movies back to back until I'm laughing again.\""
+      },
+      {
+        text: "Call friends and go on a long voice chat",
+        isCorrect: false,
+        breakdown: "INCORRECT: Calvin values deep conversations, but when he's truly low, it's solo movie time first."
+      }
+    ],
+    deepDive: "Calvin's emotional reset button is always cinema — specifically comedy. The classics never fail to lift the mood."
+  },
+  {
+    id: 'p2',
+    category: "CORE HAPPINESS",
+    question: "What is one of Calvin's absolute favorite things to do?",
+    options: [
+      {
+        text: "Play solo video games for many hours",
+        isCorrect: false,
+        breakdown: "INCORRECT: Calvin games, but solo sessions aren't his peak joy — it's the shared experiences."
+      },
+      {
+        text: "Travel to completely new countries",
+        isCorrect: false,
+        breakdown: "INCORRECT: Calvin loves exploring, but the core happiness comes from who he's with, not where he is."
+      },
+      {
+        text: "Hang out with his friends doing nothing",
+        isCorrect: true,
+        breakdown: "CORRECT: \"One of the things that gives me the most happiness is just being with my friends, enjoying time together. It can be anything — just being together.\""
+      },
+      {
+        text: "Talk to someone about cars for hours",
+        isCorrect: false,
+        breakdown: "INCORRECT: While Calvin can yap about cars forever, his deepest joy is the people in his life."
+      }
+    ],
+    deepDive: "For Calvin, happiness isn't about grand plans. A normal evening with friends — laughing about nothing, just existing together — that's peak life."
+  },
+  {
+    id: 'p3',
+    category: "GLOBAL FLIGHT PATH",
+    question: "If Calvin suddenly got a completely free plane ticket to anywhere in the world, where would he most likely go?",
+    options: [
+      {
+        text: "The pristine beaches of the Maldives",
+        isCorrect: false,
+        breakdown: "INCORRECT: Nice for a holiday, but not his absolute dream destination."
+      },
+      {
+        text: "The bustling city streets of Singapore",
+        isCorrect: false,
+        breakdown: "INCORRECT: Great food and tech, but still not the number one spot."
+      },
+      {
+        text: "The cultural landscapes of rural Japan",
+        isCorrect: false,
+        breakdown: "INCORRECT: Japan is high on the list for the cars and food, but one place beats it."
+      },
+      {
+        text: "The stunning peaks of the Swiss Alps",
+        isCorrect: true,
+        breakdown: "CORRECT: The Dolomites and the Swiss Alps are the ultimate dream destination for Calvin."
+      }
+    ],
+    deepDive: "There's something about the dramatic mountain roads of the Swiss Alps and the Dolomites that makes it Calvin's ultimate dream destination."
+  },
+  {
+    id: 'p4',
+    category: "CULINARY LOOP",
+    question: "If Calvin had to eat the exact same meal for an entire week, what would he choose?",
+    options: [
+      {
+        text: "A large cheese and pepperoni pizza",
+        isCorrect: false,
+        breakdown: "INCORRECT: Too heavy to eat every single day for a week straight."
+      },
+      {
+        text: "A classic middle-eastern shawarma",
+        isCorrect: false,
+        breakdown: "INCORRECT: Elite tier street food, but it wouldn't survive a 7-day streak."
+      },
+      {
+        text: "A plate of smoky chicken charcoal",
+        isCorrect: false,
+        breakdown: "INCORRECT: A great dinner, but lacks the ultimate comfort factor of the true winner."
+      },
+      {
+        text: "A heavy serving of classic biryani",
+        isCorrect: true,
+        breakdown: "CORRECT: Biryani is the ultimate undisputed champion of Calvin's diet."
+      }
+    ],
+    deepDive: "Biryani isn't just a meal; it's an emotion. It's the one dish Calvin could eat endlessly without ever experiencing palate fatigue."
+  },
+  {
+    id: 'p5',
+    category: "CRISIS MANAGEMENT",
+    question: "What is Calvin most likely to say when something doesn't go according to plan?",
+    options: [
+      {
+        text: "“Bro, it’s fine. We'll get it next time.”",
+        isCorrect: false,
+        breakdown: "INCORRECT: Too generic. Calvin has a very specific phrase for crisis management."
+      },
+      {
+        text: "“Bro, someone is definitely at fault.”",
+        isCorrect: false,
+        breakdown: "INCORRECT: Calvin doesn't waste time pointing fingers when things go south."
+      },
+      {
+        text: "“I don’t know what to do, I’m lost.”",
+        isCorrect: false,
+        breakdown: "INCORRECT: Calvin thrives in chaos. He's never completely lost."
+      },
+      {
+        text: "“Bro, don't worry about it. I’ll cook.”",
+        isCorrect: true,
+        breakdown: "CORRECT: \"Bro, I'll cook.\" This is Calvin's ultimate reassurance that he's taking control of the situation."
+      }
+    ],
+    deepDive: "When Calvin says 'I'll cook,' he's not talking about food. He's engaging hyper-focus mode to salvage the situation and deliver a masterclass."
+  },
+  {
+    id: 'p6',
+    category: "UNREALISTIC AMBITION",
+    question: "If Calvin could instantly become incredibly good at one thing, what would he choose?",
+    options: [
+      {
+        text: "Fluently speaking multiple languages",
+        isCorrect: false,
+        breakdown: "INCORRECT: Useful, but not the ultimate superpower he'd pick."
+      },
+      {
+        text: "Easily making new friends everywhere",
+        isCorrect: false,
+        breakdown: "INCORRECT: Calvin's already pretty good at yapping. Doesn't need a superpower for it."
+      },
+      {
+        text: "Becoming a really good expert coder",
+        isCorrect: false,
+        breakdown: "INCORRECT: He's already working hard on this. He'd rather use the wish on something else."
+      },
+      {
+        text: "Being incredibly and effortlessly rich",
+        isCorrect: true,
+        breakdown: "CORRECT: Being rich. Skip the grind, straight to the 128+ car garage."
+      }
+    ],
+    deepDive: "Why wish for skills when you can wish for the ultimate enabler? Unlimited resources means unlimited time to pursue all his other passions."
+  },
+  {
+    id: 'p7',
+    category: "MATERIAL OBSESSION",
+    question: "If Calvin could have one completely unnecessary luxury for life, what would he choose?",
+    options: [
+      {
+        text: "A massive private home theatre system",
+        isCorrect: false,
+        breakdown: "INCORRECT: He loves cinema, but a TV and a dark room is usually enough."
+      },
+      {
+        text: "A personal chef to cook all his meals",
+        isCorrect: false,
+        breakdown: "INCORRECT: Calvin *is* a born chef. He'd probably end up critiquing the chef."
+      },
+      {
+        text: "Unlimited first-class airline flights",
+        isCorrect: false,
+        breakdown: "INCORRECT: Great for travel, but doesn't scratch his primary material itch."
+      },
+      {
+        text: "An insane collection of watches & shoes",
+        isCorrect: true,
+        breakdown: "CORRECT: An insane collection of watches and shoes. Absolute drip over everything."
+      }
+    ],
+    deepDive: "Beyond cars, Calvin's ultimate material weaknesses are high-end timepieces and a ridiculous sneaker rotation. Practical? No. Essential? Yes."
+  }
+];
+
 export const VaultQuiz = () => {
   const [currentIdx, setCurrentIdx] = useState(0);
   const [selectedOpt, setSelectedOpt] = useState(null);
@@ -235,7 +434,8 @@ export const VaultQuiz = () => {
   const [isAnswered, setIsAnswered] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
 
-  const currentQ = QUESTIONS[currentIdx];
+  const activeQuestions = PERSONAL_QUESTIONS;
+  const currentQ = activeQuestions[currentIdx];
 
   const handleSelect = (idx) => {
     if (isAnswered) return;
@@ -248,7 +448,7 @@ export const VaultQuiz = () => {
   };
 
   const handleNext = () => {
-    if (currentIdx + 1 < QUESTIONS.length) {
+    if (currentIdx + 1 < activeQuestions.length) {
       setCurrentIdx(c => c + 1);
       setSelectedOpt(null);
       setIsAnswered(false);
@@ -266,10 +466,12 @@ export const VaultQuiz = () => {
   };
 
   const getClearanceRank = () => {
-    if (score === 8) return { rank: "LEVEL 5 // BLACK FILE CLEARANCE", color: "#00ffcc", msg: "Flawless technical intelligence. You understand machines and secrets at an elite level." };
-    if (score >= 6) return { rank: "LEVEL 4 // SENIOR INVESTIGATOR", color: "var(--color-gold)", msg: "High operational mastery. You grasp the real engineering behind the mythology." };
-    if (score >= 4) return { rank: "LEVEL 2 // TECHNICAL OPERATIVE", color: "#ff9500", msg: "Solid knowledge, but tripped up by thermodynamic and architectural nuances." };
-    return { rank: "LEVEL 0 // RE-EXAMINATION REQUIRED", color: "#ff3333", msg: "Underestimated the engineering. Skim the field notes and re-engage." };
+    const total = activeQuestions.length;
+    const pct = score / total;
+    if (pct === 1) return { rank: "SOULMATE CLEARANCE // YOU KNOW CALVIN", color: "#00ffcc", msg: "Perfect score. You truly know the human behind the terminal. Day-one loyalty confirmed." };
+    if (pct >= 0.7) return { rank: "INNER CIRCLE // CLOSE FRIEND", color: "var(--color-gold)", msg: "You know Calvin well. Most people don't get past the surface — you did." };
+    if (pct >= 0.4) return { rank: "ACQUAINTANCE // SURFACE LEVEL", color: "#ff9500", msg: "You know some things, but the deeper layers remain locked. Dig deeper." };
+    return { rank: "STRANGER // UNKNOWN ENTITY", color: "#ff3333", msg: "You barely know Calvin. Time to actually read the Bureau files." };
   };
 
   return (
@@ -278,16 +480,16 @@ export const VaultQuiz = () => {
       <div className="vault-panel-header">
         <div>
           <h3 className="vault-panel-title">
-            <HelpCircle size={20} color="var(--color-gold)" /> SUBJECT INTERROGATION // ADVANCED TECHNICAL DOSSIER
+            <HelpCircle size={20} color="var(--color-gold)" /> HOW WELL DO YOU KNOW CALVIN?
           </h3>
           <p style={{ color: 'var(--color-silver, #8E8D8A)', fontFamily: 'var(--font-mono)', fontSize: '0.78rem', margin: '4px 0 0 0' }}>
-            High-difficulty clearance interrogation testing your knowledge on real hypercar engineering, Cold War aerospace, cryptography & secret architecture.
+            Think you know the human behind the terminal? Prove it. Personal questions about Calvin's life, passions, and personality.
           </p>
         </div>
 
-        <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+        <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
           <span className="vault-panel-tag" style={{ background: 'rgba(197, 168, 128, 0.1)', color: 'var(--color-gold)', border: '1px solid var(--color-gold)' }}>
-            QUESTION: {isFinished ? QUESTIONS.length : currentIdx + 1} / {QUESTIONS.length}
+            QUESTION: {isFinished ? activeQuestions.length : currentIdx + 1} / {activeQuestions.length}
           </span>
           <span className="vault-panel-tag" style={{ background: 'rgba(0, 255, 204, 0.1)', color: '#00ffcc', border: '1px solid #00ffcc' }}>
             SCORE: {score}

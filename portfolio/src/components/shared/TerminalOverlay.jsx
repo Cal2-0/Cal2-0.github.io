@@ -1,20 +1,54 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { lenisInstance } from '../../utils/smoothScroll';
+import '../../styles/components/terminal-overlay.css';
+
+const COMMAND_LIST = [
+  'whoami', 'help', 'skills', 'specs', 'garage', 'vault', 'movies',
+  'food', 'contact', 'ls', 'cat', 'clear', 'nmap', 'neofetch', 'matrix', 'exit'
+];
 
 const TerminalOverlay = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [history, setHistory] = useState(['Bureau Terminal v2.4.1. Type "help" for commands.']);
+  const [isMaximized, setIsMaximized] = useState(false);
+  const [history, setHistory] = useState([
+    {
+      id: 0,
+      command: null,
+      output: 'Bureau Terminal v2.4.1. Type "help" for command manual, or click any chip above.'
+    }
+  ]);
   const [input, setInput] = useState('');
+  const [cmdHistory, setCmdHistory] = useState([]);
+  const [historyIndex, setHistoryIndex] = useState(-1);
+
   const inputRef = useRef(null);
+  const bodyRef = useRef(null);
+  const bottomRef = useRef(null);
   const navigate = useNavigate();
 
+  // Handle global shortcuts and custom events
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (e.key === '`') {
+      // Toggle with backtick (`) unless typing in another input
+      if (e.key === '`' && !e.ctrlKey && !e.metaKey) {
+        const activeTag = document.activeElement?.tagName;
+        if (activeTag !== 'INPUT' && activeTag !== 'TEXTAREA') {
+          e.preventDefault();
+          setIsOpen(prev => !prev);
+        } else if (isOpen) {
+          e.preventDefault();
+          setIsOpen(false);
+        }
+      }
+
+      // Close on Escape
+      if (e.key === 'Escape' && isOpen) {
         e.preventDefault();
-        setIsOpen(prev => !prev);
+        setIsOpen(false);
       }
     };
+
     const handleCustomOpen = () => setIsOpen(true);
     const handleCustomToggle = () => setIsOpen(prev => !prev);
 
@@ -27,19 +61,58 @@ const TerminalOverlay = () => {
       window.removeEventListener('openTerminal', handleCustomOpen);
       window.removeEventListener('toggleTerminal', handleCustomToggle);
     };
-  }, []);
-
-  useEffect(() => {
-    if (isOpen && inputRef.current) {
-      inputRef.current.focus();
-    }
   }, [isOpen]);
 
+  // Lock body scroll and pause Lenis when terminal is open
+  useEffect(() => {
+    if (isOpen) {
+      lenisInstance?.stop();
+      document.body.classList.add('terminal-open');
+    } else {
+      lenisInstance?.start();
+      document.body.classList.remove('terminal-open');
+    }
+
+    return () => {
+      lenisInstance?.start();
+      document.body.classList.remove('terminal-open');
+    };
+  }, [isOpen]);
+
+  // Auto-scroll to bottom on open or when history changes
+  const scrollToBottom = (instant = false) => {
+    if (bodyRef.current) {
+      bodyRef.current.scrollTop = bodyRef.current.scrollHeight;
+    }
+    bottomRef.current?.scrollIntoView({
+      behavior: instant ? 'auto' : 'smooth',
+      block: 'nearest'
+    });
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      scrollToBottom(true);
+      const timer = setTimeout(() => {
+        scrollToBottom(true);
+        inputRef.current?.focus();
+      }, 40);
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen, history]);
+
   const handleCommand = (cmd) => {
-    const args = cmd.trim().toLowerCase().split(' ');
+    const rawCmd = cmd.trim();
+    if (!rawCmd) return;
+
+    // Record command history for up/down arrow navigation
+    setCmdHistory(prev => [...prev, rawCmd]);
+    setHistoryIndex(-1);
+
+    const args = rawCmd.toLowerCase().split(' ');
     let output = '';
 
-    switch(args[0]) {
+    switch (args[0]) {
       case 'help':
         output = `COMMAND MANUAL:
 ---------------
@@ -104,7 +177,7 @@ exit       - Terminate session`;
         break;
       case 'audit':
         document.body.classList.toggle('audit-mode');
-        output = document.body.classList.contains('audit-mode') 
+        output = document.body.classList.contains('audit-mode')
           ? '[!] RED TEAM AUDIT MODE ENGAGED. Type "larp" or "normal" to restore.'
           : '[✔] AUDIT MODE RESTORED TO NORMAL.';
         break;
@@ -158,7 +231,7 @@ LOCATION:   Earth (Usually)`;
         } else if (args[1] === 'top_secret.enc') {
           output = 'ERROR: Decryption key required. File is AES-256 encrypted.';
         } else if (args[1] === '.ghost_protocol') {
-          output = <span style={{ color: 'rgba(10, 10, 11, 0.95)' }}>You found it. The Ghost Protocol is active. Trust no one.</span>;
+          output = <span style={{ color: 'rgba(232, 213, 181, 0.4)' }}>You found it. The Ghost Protocol is active. Trust no one.</span>;
         } else {
           output = `cat: ${args[1] || ''}: No such file or directory`;
         }
@@ -189,7 +262,7 @@ LOCATION:   Earth (Usually)`;
         output = 'Wake up, Neo...\nThe Matrix has you...\nFollow the white rabbit.';
         break;
       case 'ghost':
-        output = <span style={{ color: 'rgba(10, 10, 11, 0.95)' }}>The phantom protocol is active. This text is invisible until selected.</span>;
+        output = <span style={{ color: 'rgba(232, 213, 181, 0.4)' }}>The phantom protocol is active. This text is invisible until selected.</span>;
         break;
       case 'clear':
         setHistory([]);
@@ -198,7 +271,7 @@ LOCATION:   Earth (Usually)`;
         output = "That's... that's not how this works.";
         break;
       case 'sudo':
-        if (cmd.includes('rm -rf /')) {
+        if (rawCmd.includes('rm -rf /')) {
           output = 'Nice try. ACCESS DENIED. Incident logged.';
         } else if (args[1] === 'make' && args[2] === 'me' && args[3] === 'a' && args[4] === 'sandwich') {
           output = 'Okay.';
@@ -236,13 +309,18 @@ LOCATION:   Earth (Usually)`;
       case 'exit':
         setIsOpen(false);
         return;
-      case '':
-        return;
       default:
-        output = `Command not found: ${args[0]}`;
+        output = `Command not found: ${args[0]}. Type "help" for a list of commands.`;
     }
 
-    setHistory(prev => [...prev, `> ${cmd}`, output]);
+    setHistory(prev => [
+      ...prev,
+      {
+        id: Date.now() + Math.random(),
+        command: rawCmd,
+        output
+      }
+    ]);
   };
 
   const onSubmit = (e) => {
@@ -252,39 +330,209 @@ LOCATION:   Earth (Usually)`;
     setInput('');
   };
 
+  // Keyboard navigation for history, tabs, and shortcuts
+  const handleInputKeyDown = (e) => {
+    if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (cmdHistory.length === 0) return;
+      const nextIdx = historyIndex === -1 ? cmdHistory.length - 1 : Math.max(0, historyIndex - 1);
+      setHistoryIndex(nextIdx);
+      setInput(cmdHistory[nextIdx]);
+    } else if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (historyIndex === -1) return;
+      if (historyIndex < cmdHistory.length - 1) {
+        const nextIdx = historyIndex + 1;
+        setHistoryIndex(nextIdx);
+        setInput(cmdHistory[nextIdx]);
+      } else {
+        setHistoryIndex(-1);
+        setInput('');
+      }
+    } else if (e.key === 'Tab') {
+      e.preventDefault();
+      const current = input.trim().toLowerCase();
+      if (!current) return;
+      const match = COMMAND_LIST.find(cmd => cmd.startsWith(current));
+      if (match) {
+        setInput(match);
+      }
+    } else if (e.ctrlKey && e.key === 'l') {
+      e.preventDefault();
+      setHistory([]);
+    } else if (e.ctrlKey && e.key === 'c') {
+      e.preventDefault();
+      setHistory(prev => [
+        ...prev,
+        {
+          id: Date.now() + Math.random(),
+          command: input,
+          output: '^C'
+        }
+      ]);
+      setInput('');
+      setHistoryIndex(-1);
+    }
+  };
+
+  // Click anywhere to focus input
+  const handleContainerClick = (e) => {
+    if (e.target.closest('button') || e.target.closest('a')) return;
+    const selection = window.getSelection();
+    if (selection && selection.toString().length > 0) return;
+    inputRef.current?.focus();
+  };
+
+  const executeChip = (cmd) => {
+    handleCommand(cmd);
+    inputRef.current?.focus();
+  };
+
   if (!isOpen) return null;
 
   return (
-    <div style={{
-      position: 'fixed', bottom: 0, left: 0, width: '100%', height: '50vh',
-      backgroundColor: 'rgba(10, 10, 11, 0.95)', borderTop: '2px solid var(--color-gold)',
-      color: 'var(--color-gold)', fontFamily: 'var(--font-mono)', padding: '20px', zIndex: 10000,
-      overflowY: 'auto', backdropFilter: 'blur(10px)',
-      boxShadow: '0 -20px 50px rgba(0,0,0,0.5)'
-    }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #333', paddingBottom: '10px', marginBottom: '10px' }}>
-        <span>BUREAU TERMINAL // ROOT ACCESS</span>
-        <button onClick={() => setIsOpen(false)} style={{ background: 'none', border: 'none', color: 'var(--color-gold)', cursor: 'pointer' }}>[ CLOSE ]</button>
-      </div>
-      
-      {history.map((line, i) => (
-        <div key={i} style={{ marginBottom: '5px', whiteSpace: 'pre-wrap' }}>{line}</div>
-      ))}
-      
-      <form onSubmit={onSubmit} style={{ display: 'flex', marginTop: '10px' }}>
-        <span style={{ marginRight: '10px', color: 'var(--color-gold)' }}>root@bureau:~$</span>
-        <input 
-          ref={inputRef}
-          type="text" 
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          style={{
-            background: 'transparent', border: 'none', color: 'var(--color-gold)', 
-            fontFamily: 'var(--font-mono)', outline: 'none', flex: 1, fontSize: '1rem'
-          }}
-        />
-      </form>
-    </div>
+    <>
+      {/* Backdrop */}
+      <div
+        className="terminal-overlay-backdrop"
+        onClick={() => setIsOpen(false)}
+        aria-hidden="true"
+      />
+
+      {/* Main Terminal Overlay */}
+      <section
+        className={`terminal-overlay-container ${isMaximized ? 'is-maximized' : ''}`}
+        data-lenis-prevent="true"
+        onWheel={(e) => e.stopPropagation()}
+        onTouchMove={(e) => e.stopPropagation()}
+        onClick={handleContainerClick}
+        aria-label="Bureau Root Terminal"
+      >
+        {/* Pinned Top Bar */}
+        <div className="terminal-header" data-lenis-prevent="true">
+          <div className="terminal-title-group">
+            {/* macOS / Unix traffic lights */}
+            <div className="terminal-traffic-lights" aria-label="Terminal controls">
+              <button
+                type="button"
+                className="terminal-light terminal-light-close"
+                onClick={() => setIsOpen(false)}
+                title="Close terminal (Esc)"
+              />
+              <button
+                type="button"
+                className="terminal-light terminal-light-minimize"
+                onClick={() => setHistory([])}
+                title="Clear screen (Ctrl+L)"
+              />
+              <button
+                type="button"
+                className="terminal-light terminal-light-maximize"
+                onClick={() => setIsMaximized(prev => !prev)}
+                title="Toggle maximize"
+              />
+            </div>
+
+            <span className="terminal-title">BUREAU TERMINAL // ROOT</span>
+          </div>
+
+          {/* Quick command clickable chips */}
+          <div className="terminal-quick-chips">
+            {['whoami', 'help', 'skills', 'specs', 'garage', 'vault', 'clear'].map((chip) => (
+              <button
+                key={chip}
+                type="button"
+                className="terminal-chip"
+                onClick={() => executeChip(chip)}
+              >
+                {chip}
+              </button>
+            ))}
+          </div>
+
+          {/* Action buttons */}
+          <div className="terminal-actions">
+            <button
+              type="button"
+              className="terminal-btn"
+              onClick={() => setIsMaximized(prev => !prev)}
+            >
+              {isMaximized ? '[ ⛶ HALF ]' : '[ ⛶ FULL ]'}
+            </button>
+            <button
+              type="button"
+              className="terminal-btn terminal-btn-close"
+              onClick={() => setIsOpen(false)}
+            >
+              [ ✕ CLOSE ]
+            </button>
+          </div>
+        </div>
+
+        {/* Scrollable Terminal Output Body */}
+        <div
+          ref={bodyRef}
+          className="terminal-body"
+          data-lenis-prevent="true"
+          onWheel={(e) => e.stopPropagation()}
+          onTouchMove={(e) => e.stopPropagation()}
+        >
+          {history.map((item) => (
+            <div key={item.id || Math.random()} className="terminal-entry">
+              {item.command && (
+                <div className="terminal-line terminal-line-command">
+                  <span className="terminal-prompt">root@bureau:~$</span>
+                  <span>{item.command}</span>
+                </div>
+              )}
+              {item.output && (
+                <div className="terminal-line terminal-line-output">
+                  {item.output}
+                </div>
+              )}
+            </div>
+          ))}
+
+          {/* Active Command Input Line */}
+          <form onSubmit={onSubmit} className="terminal-input-form">
+            <label htmlFor="terminal-cli-input" className="terminal-prompt">
+              root@bureau:~$
+            </label>
+            <div className="terminal-input-wrapper">
+              <input
+                id="terminal-cli-input"
+                ref={inputRef}
+                type="text"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={handleInputKeyDown}
+                className="terminal-input"
+                autoComplete="off"
+                autoCapitalize="off"
+                autoCorrect="off"
+                spellCheck={false}
+                aria-label="Terminal command input"
+              />
+              <span className="terminal-blinking-cursor" aria-hidden="true" />
+            </div>
+          </form>
+
+          {/* Anchor for auto-scrolling */}
+          <div ref={bottomRef} style={{ height: '1px' }} />
+        </div>
+
+        {/* Bottom Status / Keyboard Hint Bar */}
+        <div className="terminal-footer-hint">
+          <div className="terminal-status-tag">
+            <span className="terminal-status-dot" />
+            <span>SESSION: ACTIVE // ROOT ENCRYPTED</span>
+          </div>
+          <div>
+            <span>[ESC] Close • [↑/↓] History • [TAB] Complete • [CTRL+L] Clear</span>
+          </div>
+        </div>
+      </section>
+    </>
   );
 };
 
