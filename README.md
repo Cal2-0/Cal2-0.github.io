@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://courageous-pithivier-cb9e32.netlify.app"><img src="https://img.shields.io/badge/🌐_PORTFOLIO_WEBSITE-courageous--pithivier--cb9e32.netlify.app-C5A059?style=for-the-badge&logo=vercel&logoColor=13111C&labelColor=1F1C2E" alt="Portfolio Website"/></a>
+  <a href="https://calvindsouza.is-a.dev/"><img src="https://img.shields.io/badge/🌐_PORTFOLIO_WEBSITE-calvindsouza.is--a.dev-C5A059?style=for-the-badge&logo=google-chrome&logoColor=13111C&labelColor=1F1C2E" alt="Portfolio Website"/></a>
   <a href="mailto:calvinja320@gmail.com"><img src="https://img.shields.io/badge/Email-calvinja320%40gmail.com-1F1C2E?style=for-the-badge&logo=gmail&logoColor=EAE0D5&labelColor=13111C" alt="Email"/></a>
   <a href="https://linkedin.com/in/calvin-jude-dsouza"><img src="https://img.shields.io/badge/LinkedIn-calvin--jude--dsouza-1F1C2E?style=for-the-badge&logo=linkedin&logoColor=EAE0D5&labelColor=13111C" alt="LinkedIn"/></a>
   <a href="https://github.com/Cal2-0"><img src="https://img.shields.io/badge/GitHub-@Cal2--0-1F1C2E?style=for-the-badge&logo=github&logoColor=EAE0D5&labelColor=13111C" alt="GitHub"/></a>
@@ -19,18 +19,19 @@
 
 B.Tech Computer Science (Cybersecurity), NMAM Institute of Technology — Class of 2028 · CGPA 9.26/10. Currently **Team Lead, Cybersecurity Intern at Army Cyber Group**, New Delhi.
 
-- 🌐 **Portfolio Website & Interactive Demos:** [courageous-pithivier-cb9e32.netlify.app](https://courageous-pithivier-cb9e32.netlify.app)
-- 🔬 **Applied AI Research:** frequency-domain signal analysis for deepfake detection, interpretable model decisions
-- 🛡️ **Forensics & Intelligence:** on-chain behavioral clustering, transaction trace analysis, network packet dissection
-- 🔐 **Cryptography:** post-quantum key encapsulation (ML-KEM-1024), chaos steganography, zero-trust auth engines
+- 🌐 **Live Portfolio & Interactive Demos:** [https://calvindsouza.is-a.dev/](https://calvindsouza.is-a.dev/)
+- 🔬 **Applied AI Research:** Frequency-domain signal analysis for deepfake detection, interpretable model decisions
+- 🛡️ **Forensics & Intelligence:** On-chain behavioral clustering, transaction trace analysis, network packet dissection
+- 🔐 **Cryptography:** Post-quantum key encapsulation (ML-KEM-1024), chaos steganography, zero-trust auth engines
 - 📬 Open to internships and security research collaborations — see contact links above
 
 ---
 
 ## 🛠️ Tech Arsenal
 
-<details>
+<details open>
 <summary><b>Core stack</b> — Python · C/C++ · React · FastAPI · PyTorch · Docker · Linux</summary>
+<br/>
 
 ### Languages
 <p>
@@ -110,6 +111,31 @@ B.Tech Computer Science (Cybersecurity), NMAM Institute of Technology — Class 
 | **[VaidikaAI](https://github.com/NITHINKR06/Qwerty201_Protothon)** | Multilingual hospital triage — 48h hackathon | LLMs · Prompt Engineering |
 | **Kenshō** | Tacit knowledge capture, enterprise AI — offline, privacy-first | LLaMA · PostgreSQL · ES |
 | **NeuroMetric** | Multimodal behavioural analytics — gaze, affect, speech fusion | React Native · MediaPipe |
+
+---
+
+## 🏛️ Repository Structure
+
+The complete source code for the interactive portfolio web application is hosted in the [`/portfolio`](./portfolio) directory.
+
+```text
+resume/
+├── .github/workflows/deploy.yml   # Automatic GitHub Pages CI/CD pipeline
+├── portfolio/                     # React 19 + Vite Application
+│   ├── src/                       # Components, Pages, State, Styles
+│   ├── public/                    # Assets, Resumes, Media
+│   ├── package.json
+│   └── vite.config.js
+└── README.md                      # Documentation & Overview
+```
+
+### Local Development
+
+```bash
+cd portfolio
+npm install
+npm run dev
+```
 
 ---
 
