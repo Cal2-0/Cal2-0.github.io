@@ -38,15 +38,21 @@ const FieldEvidence = () => {
     return () => ctx.revert();
   }, []);
 
-  const slides = transmissions
-    .filter(tx => tx.image)
-    .map(tx => ({
+  // Prioritize Indian Army Cyber Group internship as the primary / main slide
+  const armyTx = transmissions.find(tx => tx.id === 'tx-04' || (tx.content && tx.content.includes('Indian Army')));
+  const otherTxs = transmissions.filter(tx => tx.image && tx !== armyTx);
+  const orderedTransmissions = armyTx ? [armyTx, ...otherTxs] : transmissions.filter(tx => tx.image);
+
+  const slides = orderedTransmissions.map(tx => {
+    const isArmy = tx === armyTx;
+    return {
       src: tx.image,
-      alt: tx.type,
-      title: `${tx.type} // ${tx.date}`,
-      subtitle: tx.content.substring(0, 100) + '...',
+      alt: isArmy ? "Indian Army Cyber Group // Cyber Forensics Laboratory" : tx.type,
+      title: isArmy ? "INDIAN ARMY CYBER GROUP // CYBER FORENSICS" : `${tx.type} // ${tx.date}`,
+      subtitle: tx.content.length > 130 ? tx.content.substring(0, 130) + '...' : tx.content,
       link: tx.link,
-    }));
+    };
+  });
 
   return (
     <section className="evidence-scene" ref={evidenceRef} style={{ paddingBottom: '6rem' }}>

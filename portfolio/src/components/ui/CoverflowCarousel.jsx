@@ -19,18 +19,19 @@ export function CoverflowCarousel({
   showPagination = true,
   showNavigation = true,
   label = "Cover carousel",
+  initialIndex = 0,
 }) {
   const count = slides.length;
 
   const frameRef = useRef(null);
   const cardRefs = useRef([]);
-  const posRef = useRef(0);
-  const targetRef = useRef(0);
+  const posRef = useRef(initialIndex);
+  const targetRef = useRef(initialIndex);
   const widthRef = useRef(0);
   const rafRef = useRef(null);
   const dragRef = useRef(null);
 
-  const [selected, setSelected] = useState(0);
+  const [selected, setSelected] = useState(initialIndex);
 
   const indexAt = useCallback(
     (pos) => {

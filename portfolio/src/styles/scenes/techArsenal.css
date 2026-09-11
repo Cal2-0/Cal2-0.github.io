@@ -1,0 +1,564 @@
+/* ==========================================================================
+   THE BUREAU — TECHNICAL ARSENAL (MULTI-ORBIT RADAR DOME)
+   ========================================================================== */
+
+.bureau-arsenal {
+  position: relative;
+  width: 100%;
+  padding: 100px 0 120px;
+  background: radial-gradient(circle at 50% 100%, rgba(26, 22, 38, 0.6) 0%, rgba(10, 10, 11, 0.95) 70%);
+  overflow: hidden;
+  color: var(--color-ink, #F3F4F6);
+  font-family: var(--font-body, 'Inter', sans-serif);
+}
+
+/* Ambient Scanlines & Grid Overlay */
+.bureau-arsenal::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(to right, rgba(232, 213, 181, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(232, 213, 181, 0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  opacity: 0.8;
+  z-index: 1;
+}
+
+.bureau-arsenal-container {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 2;
+}
+
+/* Header & Classification Metadata */
+.arsenal-header {
+  text-align: center;
+  max-width: 780px;
+  margin-bottom: 32px;
+}
+
+.arsenal-classification {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  color: var(--color-gold, #E8D5B5);
+  text-transform: uppercase;
+  background: rgba(232, 213, 181, 0.06);
+  border: 1px solid rgba(232, 213, 181, 0.2);
+  padding: 4px 14px;
+  border-radius: 999px;
+  margin-bottom: 18px;
+}
+
+.arsenal-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 10px #10B981;
+  animation: radarPulse 2s infinite ease-in-out;
+}
+
+.arsenal-title {
+  font-family: var(--font-display, 'Cormorant Garamond', serif);
+  font-size: clamp(2.4rem, 5vw, 4.2rem);
+  font-weight: 300;
+  line-height: 1.1;
+  color: #FFFFFF;
+  margin: 0 0 16px;
+  letter-spacing: -0.01em;
+}
+
+.arsenal-title em {
+  font-style: italic;
+  color: var(--color-gold, #E8D5B5);
+  font-weight: 400;
+}
+
+.arsenal-subtitle {
+  font-size: clamp(0.95rem, 1.2vw, 1.15rem);
+  color: var(--color-graphite, #9CA3AF);
+  line-height: 1.6;
+  margin: 0 auto 28px;
+  font-weight: 400;
+}
+
+/* Category Filter Tabs */
+.arsenal-filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 10;
+}
+
+.arsenal-filter-btn {
+  background: rgba(18, 18, 22, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--color-ash, #6B7280);
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  backdrop-filter: blur(10px);
+}
+
+.arsenal-filter-btn:hover {
+  border-color: rgba(232, 213, 181, 0.4);
+  color: var(--color-gold, #E8D5B5);
+  background: rgba(232, 213, 181, 0.04);
+}
+
+.arsenal-filter-btn.active {
+  background: rgba(232, 213, 181, 0.12);
+  border-color: var(--color-gold, #E8D5B5);
+  color: var(--color-gold, #E8D5B5);
+  box-shadow: 0 0 20px rgba(232, 213, 181, 0.15);
+}
+
+/* ==========================================================================
+   THE SEMI-CIRCLE ORBITAL DOME
+   ========================================================================== */
+
+.orbit-stage {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  user-select: none;
+}
+
+/* Radar Sweep Beam Effect */
+.radar-sweep-beam {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 100%;
+  height: 200%;
+  transform-origin: bottom center;
+  background: conic-gradient(
+    from 180deg at 50% 100%,
+    transparent 0deg,
+    rgba(232, 213, 181, 0.04) 20deg,
+    rgba(139, 92, 246, 0.08) 35deg,
+    transparent 40deg
+  );
+  border-radius: 50% 50% 0 0;
+  pointer-events: none;
+  animation: radarSweep 14s linear infinite;
+  z-index: 2;
+  opacity: 0.7;
+}
+
+/* Ambient Radial Glow at Base */
+.orbit-dome-glow {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  height: 90%;
+  border-radius: 50% 50% 0 0;
+  background: radial-gradient(circle at 50% 100%, rgba(139, 92, 246, 0.12) 0%, rgba(232, 213, 181, 0.05) 45%, transparent 70%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* SVG Orbital Track Lines */
+.orbit-svg-tracks {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Nodes on Orbit */
+.orbit-node-wrapper {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
+.orbit-node-wrapper.dimmed {
+  opacity: 0.2;
+  filter: grayscale(0.8) blur(0.5px);
+  pointer-events: none;
+}
+
+.orbit-node {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #121217;
+  border: 1px solid rgba(232, 213, 181, 0.28);
+  color: var(--color-gold, #E8D5B5);
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7), 0 0 12px rgba(232, 213, 181, 0.1);
+}
+
+.orbit-node::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1px dashed rgba(232, 213, 181, 0);
+  transition: all 0.3s ease;
+}
+
+.orbit-node:hover,
+.orbit-node.active {
+  transform: scale(1.22);
+  border-color: var(--color-gold, #E8D5B5);
+  color: #FFFFFF;
+  background: #1A1A24;
+  box-shadow: 
+    0 0 24px rgba(232, 213, 181, 0.45),
+    0 0 48px rgba(139, 92, 246, 0.35),
+    inset 0 0 12px rgba(232, 213, 181, 0.2);
+  z-index: 25;
+}
+
+.orbit-node:hover::after,
+.orbit-node.active::after {
+  border-color: rgba(232, 213, 181, 0.6);
+  transform: rotate(45deg);
+}
+
+/* Category Accent Colors */
+.orbit-node[data-category="security"] {
+  border-color: rgba(139, 92, 246, 0.35);
+  color: #C4B5FD;
+}
+.orbit-node[data-category="security"]:hover,
+.orbit-node[data-category="security"].active {
+  border-color: #A78BFA;
+  box-shadow: 0 0 25px rgba(139, 92, 246, 0.5), inset 0 0 10px rgba(139, 92, 246, 0.3);
+}
+
+.orbit-node[data-category="ai"] {
+  border-color: rgba(6, 182, 212, 0.35);
+  color: #67E8F9;
+}
+.orbit-node[data-category="ai"]:hover,
+.orbit-node[data-category="ai"].active {
+  border-color: #22D3EE;
+  box-shadow: 0 0 25px rgba(6, 182, 212, 0.5), inset 0 0 10px rgba(6, 182, 212, 0.3);
+}
+
+.orbit-node[data-category="systems"] {
+  border-color: rgba(232, 213, 181, 0.35);
+  color: #E8D5B5;
+}
+.orbit-node[data-category="systems"]:hover,
+.orbit-node[data-category="systems"].active {
+  border-color: #FDE68A;
+  box-shadow: 0 0 25px rgba(232, 213, 181, 0.5), inset 0 0 10px rgba(232, 213, 181, 0.3);
+}
+
+/* Hover Quick Tooltip */
+.orbit-tooltip {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(13, 13, 16, 0.95);
+  border: 1px solid rgba(232, 213, 181, 0.3);
+  color: #F3F4F6;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.68rem;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.7);
+  z-index: 30;
+}
+
+.orbit-node-wrapper:hover .orbit-tooltip {
+  opacity: 1;
+}
+
+.orbit-tooltip--above {
+  bottom: calc(100% + 10px);
+  transform: translateX(-50%) translateY(4px);
+}
+
+.orbit-node-wrapper:hover .orbit-tooltip--above {
+  transform: translateX(-50%) translateY(0);
+}
+
+.orbit-tooltip--below {
+  top: calc(100% + 10px);
+  transform: translateX(-50%) translateY(-4px);
+}
+
+.orbit-node-wrapper:hover .orbit-tooltip--below {
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Central Radar Origin Beacon */
+.orbit-origin-beacon {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: #0D0D10;
+  border: 1px solid var(--color-gold, #E8D5B5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-gold, #E8D5B5);
+  z-index: 10;
+  box-shadow: 0 0 25px rgba(232, 213, 181, 0.25);
+  cursor: default;
+}
+
+.orbit-origin-beacon::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 1px dashed rgba(232, 213, 181, 0.3);
+  animation: spinSlow 30s linear infinite;
+}
+
+/* ==========================================================================
+   THE TELEMETRY INSPECTOR HUD (CARD AT BASE)
+   ========================================================================== */
+
+.arsenal-hud-container {
+  width: 100%;
+  max-width: 960px;
+  margin-top: 48px;
+  position: relative;
+  z-index: 10;
+}
+
+.arsenal-hud-card {
+  background: rgba(14, 14, 18, 0.85);
+  border: 1px solid rgba(232, 213, 181, 0.25);
+  border-radius: 8px;
+  padding: 24px 32px;
+  backdrop-filter: blur(16px);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px;
+  align-items: center;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.arsenal-hud-card:hover {
+  border-color: rgba(232, 213, 181, 0.5);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.7),
+    0 0 30px rgba(232, 213, 181, 0.1);
+}
+
+.hud-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.hud-category-badge {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.68rem;
+  letter-spacing: 0.15em;
+  color: var(--color-gold, #E8D5B5);
+  background: rgba(232, 213, 181, 0.08);
+  border: 1px solid rgba(232, 213, 181, 0.25);
+  padding: 3px 8px;
+  border-radius: 3px;
+  text-transform: uppercase;
+}
+
+.hud-status-badge {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.68rem;
+  color: #10B981;
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  padding: 3px 8px;
+  border-radius: 3px;
+  letter-spacing: 0.05em;
+}
+
+.hud-instrument-name {
+  font-family: var(--font-display, 'Cormorant Garamond', serif);
+  font-size: 1.85rem;
+  color: #FFFFFF;
+  margin: 0 0 6px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hud-role {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.8rem;
+  color: var(--color-gold, #E8D5B5);
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.hud-description {
+  font-size: 0.92rem;
+  color: var(--color-graphite, #9CA3AF);
+  line-height: 1.55;
+  margin: 0;
+  max-width: 620px;
+}
+
+.hud-deployment-box {
+  background: rgba(20, 20, 26, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 6px;
+  padding: 16px 20px;
+  text-align: right;
+  min-width: 220px;
+}
+
+.hud-deployment-label {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.65rem;
+  color: var(--color-ash, #6B7280);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.hud-deployment-value {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-gold, #E8D5B5);
+  line-height: 1.4;
+}
+
+/* Base Horizon Rule */
+.arsenal-horizon-rule {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(232, 213, 181, 0.2) 30%, rgba(232, 213, 181, 0.4) 50%, rgba(232, 213, 181, 0.2) 70%, transparent 100%);
+  z-index: 3;
+}
+
+/* Animations */
+@keyframes radarSweep {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes radarPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.6);
+    opacity: 0.4;
+  }
+}
+
+@keyframes spinSlow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ==========================================================================
+   RESPONSIVENESS
+   ========================================================================== */
+
+@media (max-width: 860px) {
+  .bureau-arsenal {
+    padding: 70px 0 90px;
+  }
+
+  .arsenal-hud-card {
+    grid-template-columns: 1fr;
+    padding: 20px;
+    gap: 16px;
+  }
+
+  .hud-deployment-box {
+    text-align: left;
+  }
+
+  .hud-instrument-name {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .arsenal-filter-btn {
+    font-size: 0.65rem;
+    padding: 6px 12px;
+  }
+
+  .orbit-tooltip {
+    display: none !important;
+  }
+}
+
+/* Terminal Section within Arsenal */
+.arsenal-terminal-section {
+  margin-top: var(--space-8);
+  padding-top: var(--space-6);
+  border-top: 1px solid rgba(232, 213, 181, 0.08);
+}
+
+.arsenal-terminal-label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--color-gold);
+  letter-spacing: 0.15em;
+  margin-bottom: var(--space-4);
+}

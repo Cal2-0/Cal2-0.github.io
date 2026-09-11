@@ -25,6 +25,27 @@
   .magazine-grid {
     display: flex;
     flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .magazine-grid > div {
+    width: 100% !important;
+  }
+
+  .magazine-header {
+    padding-left: var(--grid-margin) !important;
+    padding-right: var(--grid-margin) !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .magazine-grid {
+    gap: var(--space-5);
+    padding: 0 var(--space-3);
+  }
+
+  .magazine-header h1 {
+    font-size: clamp(2rem, 8vw, 3.5rem) !important;
   }
 }
 
@@ -869,8 +890,50 @@ h1.article-title {
     grid-template-columns: 1fr;
   }
 
+  /* Convert sidebar to compact horizontal metadata strip on mobile */
   .reader-sidebar {
-    display: none; /* Hide sticky sidebar on mobile */
+    order: -1;
+    border-bottom: 1px solid var(--color-rule);
+    padding-bottom: var(--space-4);
+    margin-bottom: var(--space-4);
+  }
+
+  .sidebar-sticky {
+    position: static;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    align-items: flex-start;
+  }
+
+  .sidebar-meta-block {
+    flex-direction: row;
+    gap: var(--space-2);
+    align-items: center;
+  }
+
+  .sidebar-meta-label {
+    font-size: 0.6rem;
+  }
+
+  .sidebar-meta-value {
+    font-size: 0.75rem;
+  }
+
+  .sidebar-categories {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-top: 0;
+  }
+
+  .sidebar-category-link {
+    font-size: 0.7rem;
+    padding: var(--space-1) var(--space-2);
+  }
+
+  .sidebar-related {
+    display: none;
   }
 
   .reader-title {
@@ -880,10 +943,21 @@ h1.article-title {
   .reader-content {
     font-size: 1.05rem;
   }
-  
+
   .reader-content blockquote {
     font-size: 1.15rem;
     padding-left: 1rem;
+  }
+
+  .article-author-card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .reader-footer-content {
+    flex-direction: column;
+    gap: var(--space-4);
+    text-align: center;
   }
 }
 

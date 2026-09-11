@@ -10,6 +10,7 @@ import AchievementsMarquee from './components/shared/AchievementsMarquee';
 import GithubTelemetry from './components/sections/GithubTelemetry';
 import ProjectsSection from './components/sections/ProjectsSection';
 import FieldEvidence from './components/sections/FieldEvidence';
+import TechArsenal from './components/sections/TechArsenal';
 import Transmissions from './components/sections/Transmissions';
 import FieldNotes from './components/sections/FieldNotes';
 import ArticleView from './pages/ArticleView';
@@ -27,6 +28,7 @@ import Cursor from './components/shared/Cursor';
 import ScrollProgress from './components/shared/ScrollProgress';
 import TransmitModal from './components/shared/TransmitModal';
 import TerminalOverlay from './components/shared/TerminalOverlay';
+import BootLoader from './components/shared/BootLoader';
 
 import './index.css';
 import './styles/scenes/audit.css';
@@ -180,18 +182,20 @@ const SectionDivider = ({ label, variant = 'default' }) => (
   </div>
 );
 
-const Home = () => (
+const Home = ({ onTransmitClick }) => (
   <>
     <Hero />
     <SectionDivider label="DOSSIER" variant="gold" />
     <Person />
     <AchievementsMarquee />
-    <SectionDivider label="LIVE FEED" variant="pulse" />
+    <SectionDivider label="LIVE FEED" variant="gold" />
     <GithubTelemetry />
-    <SectionDivider label="CASE FILES" variant="gold" />
+    <SectionDivider label="CASE FILES" variant="pulse" />
     <ProjectsSection />
-    <SectionDivider label="FIELD EVIDENCE" variant="pulse" />
+    <SectionDivider label="FIELD EVIDENCE" variant="gold" />
     <FieldEvidence />
+    <SectionDivider label="TECHNICAL ARSENAL" variant="gold" />
+    <TechArsenal />
   </>
 );
 
@@ -250,6 +254,15 @@ class ErrorBoundary extends Component {
 
 function App() {
   const [transmitOpen, setTransmitOpen] = useState(false);
+  const [booting, setBooting] = useState(() => {
+    // Show boot sequence only on first visit per session
+    return !sessionStorage.getItem('bureau_booted');
+  });
+
+  const handleBootComplete = () => {
+    sessionStorage.setItem('bureau_booted', 'true');
+    setBooting(false);
+  };
 
   useEffect(() => {
     const lenis = initSmoothScroll();
@@ -270,6 +283,7 @@ function App() {
 
   return (
     <ErrorBoundary>
+      {booting && <BootLoader onComplete={handleBootComplete} />}
       <Router>
         <div className="app-wrapper">
           <div className="audit-status-overlay">
@@ -307,7 +321,7 @@ function App() {
           <Nav onTransmitClick={openTransmit} />
           <main className="app-container">
             <Routes>
-              <Route path="/" element={<Home />} />
+              <Route path="/" element={<Home onTransmitClick={openTransmit} />} />
               <Route path="/gallery" element={<Gallery />} />
               <Route path="/work" element={<ProjectArchive />} />
               <Route path="/writing" element={<FieldNotes />} />
