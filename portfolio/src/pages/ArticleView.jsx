@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState, useMemo } from 'react';
+import { useParams, Link } from 'react-router-dom';
 import { getArticleBySlug, getAllArticles } from '../utils/articles';
 import MarkdownRenderer from '../components/article/MarkdownRenderer';
 import { ArrowLeft } from 'lucide-react';
@@ -7,10 +7,20 @@ import '../styles/scenes/editorial.css';
 
 const ArticleView = () => {
   const { slug } = useParams();
-  const navigate = useNavigate();
-  const [article, setArticle] = useState(null);
-  const [relatedArticle, setRelatedArticle] = useState(null);
   const [scrollProgress, setScrollProgress] = useState(0);
+
+  const article = useMemo(() => getArticleBySlug(slug), [slug]);
+  const relatedArticle = useMemo(() => {
+    if (!article) return null;
+    const all = getAllArticles();
+    if (all.length > 1) {
+      const others = all.filter(a => a.slug !== slug);
+      let related = others.find(a => article?.categories?.some(c => a.categories?.includes(c)));
+      if (!related) related = others[0];
+      return related;
+    }
+    return null;
+  }, [article, slug]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,18 +33,6 @@ const ArticleView = () => {
   }, []);
 
   useEffect(() => {
-    const data = getArticleBySlug(slug);
-    setArticle(data);
-    
-    // Pick a related article
-    const all = getAllArticles();
-    if (all.length > 1) {
-      const others = all.filter(a => a.slug !== slug);
-      let related = others.find(a => data?.categories?.some(c => a.categories?.includes(c)));
-      if (!related) related = others[0];
-      setRelatedArticle(related);
-    }
-    
     window.scrollTo(0, 0);
   }, [slug]);
 

@@ -61,7 +61,7 @@ const ProjectSpread = ({ project }) => {
             <div className="project-demo-polaroid">
               <Polaroid 
                 image={project.demoImage} 
-                caption={project.demoCaption || "Testing..."} 
+                caption={project.demoCaption || `${project.title} Interface`} 
                 rotation={3} 
                 size="small"
               />

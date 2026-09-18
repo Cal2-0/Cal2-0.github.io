@@ -4,25 +4,19 @@ import gsap from 'gsap';
 import '../styles/scenes/notfound.css';
 
 const NotFound = () => {
-  const [caseId, setCaseId] = useState('');
-  const [timestamp, setTimestamp] = useState('');
+  const [caseId] = useState(() => {
+    const hex = Array.from({ length: 8 }, () => Math.floor(Math.random() * 16).toString(16)).join('').toUpperCase();
+    return `0x${hex}`;
+  });
+  const [timestamp] = useState(() => {
+    const now = new Date();
+    return now.toISOString().replace('T', ' // ').split('.')[0] + ' UTC';
+  });
   const containerRef = useRef(null);
   const titleRef = useRef(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-
-    // Generate random case ID
-    const hex = Array.from({ length: 8 }, () =>
-      Math.floor(Math.random() * 16).toString(16)
-    ).join('').toUpperCase();
-    setCaseId(`0x${hex}`);
-
-    // Set current timestamp
-    const now = new Date();
-    setTimestamp(
-      now.toISOString().replace('T', ' // ').split('.')[0] + ' UTC'
-    );
 
     // Glitch animation on the 404 title
     const chars = titleRef.current?.querySelectorAll('.notfound-char');

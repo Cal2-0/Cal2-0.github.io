@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { ArrowLeft, Terminal, ShieldAlert, Zap, Compass, Film, Cpu, Utensils, Gauge, HelpCircle, Image as ImageIcon, Volume2, Shield, Lock, X } from 'lucide-react';
 import '../styles/scenes/vault.css';
 
@@ -25,13 +25,12 @@ const GAME_COMBO = ['ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'Arrow
 
 const SecretProtocols = () => {
   const [activeTab, setActiveTab] = useState('GARAGE');
-  const [isAuditActive, setIsAuditActive] = useState(false);
+  const [isAuditActive, setIsAuditActive] = useState(() => document.body.classList.contains('audit-mode'));
   const [gameUnlocked, setGameUnlocked] = useState(false);
   const [gameToast, setGameToast] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    setIsAuditActive(document.body.classList.contains('audit-mode'));
   }, []);
 
   // Secret key combo listener for hidden mini-game

@@ -159,7 +159,6 @@ export const VaultSecrets = () => {
   const [selectedCategory, setSelectedCategory] = useState('ALL');
   const [searchQuery, setSearchQuery] = useState('');
   const [hoveredRedacted, setHoveredRedacted] = useState(null);
-  const [intelAcknowledged, setIntelAcknowledged] = useState({});
 
   const toggleDecrypt = (id) => {
     if (decryptedCards.includes(id)) {
@@ -177,12 +176,7 @@ export const VaultSecrets = () => {
     }
   };
 
-  const toggleAcknowledge = (id) => {
-    setIntelAcknowledged(prev => ({
-      ...prev,
-      [id]: !prev[id]
-    }));
-  };
+  // Removed unused toggleAcknowledge function
 
   // Filtered Dossiers
   const filteredConfessions = useMemo(() => {
@@ -336,7 +330,6 @@ export const VaultSecrets = () => {
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '16px', fontFamily: 'var(--font-mono)' }}>
         {filteredConfessions.map((item) => {
           const isDecrypted = decryptedCards.includes(item.id);
-          const isAck = !!intelAcknowledged[item.id];
           const IconComp = item.icon;
 
           return (

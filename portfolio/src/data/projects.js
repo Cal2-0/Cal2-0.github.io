@@ -207,42 +207,42 @@ export const labProjects = [
     id: "lab-01",
     title: "CalHive",
     desc: "NLP-powered productivity SPA with natural-language task classification using spaCy.",
-    github: "#"
+    github: null
   },
   {
     id: "lab-02",
     title: "Warehouse Inventory System",
     desc: "Full-stack inventory management covering stock movement, RBAC, capacity tracking.",
-    github: "#"
+    github: null
   },
   {
     id: "lab-03",
     title: "Movieszbt",
     desc: "Authenticated movie catalogue and personal watchlist integrating TMDB.",
-    github: "#"
+    github: null
   },
   {
     id: "lab-04",
     title: "Secure Rooms Chat",
     desc: "Password-protected room-based communication using WebSocket broadcasting.",
-    github: "#"
+    github: null
   },
   {
     id: "lab-05",
     title: "Melkit",
     desc: "Digital-forensics utility for extracting and visualising EXIF metadata and GPS coordinates.",
-    github: "#"
+    github: null
   },
   {
     id: "lab-06",
     title: "SnapShop",
     desc: "Image-based product recommendation using CLIP vision-language embeddings and similarity search.",
-    github: "#"
+    github: null
   },
   {
     id: "lab-07",
     title: "Cipher Lab",
     desc: "Interactive environment for experimenting with classical cryptographic algorithms.",
-    github: "#"
+    github: null
   }
 ];
