@@ -312,7 +312,7 @@ export function CoverflowCarousel({
             </a>
           )}
           {active.slug && !active.link && (
-            <Link to={`/field-notes/${active.slug}`} className="cf-caption-link">
+            <Link to={`/writing/${active.slug}`} className="cf-caption-link">
               ↗ INVESTIGATE FILE
             </Link>
           )}

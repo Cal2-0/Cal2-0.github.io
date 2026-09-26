@@ -27,8 +27,8 @@ export const profile = {
     { value: "10+", label: "COMPETITIONS PLACED" }
   ],
   bio: [
-    "I build investigation platforms — systems concerned with evidence, proof, signals, and provenance. My work sits at the intersection of cybersecurity, AI research, and forensic analysis.",
-    "Beyond the terminal, my work is heavily influenced by the engineering precision of Formula 1 telemetry, the spatial and narrative composition of cinema, and the meticulous documentation of archival art. I study machines the way a curator studies a collection."
+    "Hi, I'm Calvin D'Souza. Originally from Mangalore, raised in the UAE as an NRI, but at heart, a true Indian. Building machines and understanding how complex systems tick has always fascinated me — which is exactly why I'm here.",
+    "I'm a 20-year-old, 3rd-year Computer Science (Cybersecurity) student at NMAMIT. I'm on a relentless pursuit to learn everything and become the all-knowing architect of the systems I build. I live by one defining quote: 'Jack of all trades, master of none, but an explorer of many.'"
   ],
   currently: [
     { activity: "BUILDING", focus: "Forensic telemetry engines" },

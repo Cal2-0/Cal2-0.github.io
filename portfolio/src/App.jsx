@@ -11,6 +11,7 @@ import GithubTelemetry from './components/sections/GithubTelemetry';
 import ProjectsSection from './components/sections/ProjectsSection';
 import FieldEvidence from './components/sections/FieldEvidence';
 import TechArsenal from './components/sections/TechArsenal';
+import ExploreHyperlinks from './components/sections/ExploreHyperlinks';
 import Transmissions from './components/sections/Transmissions';
 import FieldNotes from './components/sections/FieldNotes';
 import ArticleView from './pages/ArticleView';
@@ -20,8 +21,10 @@ import ProjectArchive from './pages/ProjectArchive';
 import NotFound from './pages/NotFound';
 import Uses from './pages/Uses';
 import Timeline from './pages/Timeline';
+import AboutMe from './pages/AboutMe';
 import Classified from './pages/Classified';
 import SecretProtocols from './pages/SecretProtocols';
+import StackBuilder from './pages/StackBuilder';
 import Nav from './components/sections/Nav';
 import Footer from './components/sections/Footer';
 import Cursor from './components/shared/Cursor';
@@ -196,6 +199,8 @@ const Home = ({ onTransmitClick }) => (
     <FieldEvidence />
     <SectionDivider label="TECHNICAL ARSENAL" variant="gold" />
     <TechArsenal />
+    <SectionDivider label="EXPLORE" variant="gold" />
+    <ExploreHyperlinks />
   </>
 );
 
@@ -322,6 +327,7 @@ function App() {
           <main className="app-container">
             <Routes>
               <Route path="/" element={<Home onTransmitClick={openTransmit} />} />
+              <Route path="/me" element={<AboutMe />} />
               <Route path="/gallery" element={<Gallery />} />
               <Route path="/work" element={<ProjectArchive />} />
               <Route path="/writing" element={<FieldNotes />} />
@@ -333,6 +339,7 @@ function App() {
               <Route path="/classified" element={<Classified />} />
               <Route path="/vault" element={<SecretProtocols />} />
               <Route path="/protocols" element={<SecretProtocols />} />
+              <Route path="/build-stack" element={<StackBuilder />} />
               {/* Legacy redirects */}
               <Route path="/archive" element={<ProjectArchive />} />
               <Route path="/blog" element={<FieldNotes />} />

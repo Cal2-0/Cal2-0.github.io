@@ -131,6 +131,17 @@ export const orbitalTiers = [
         status: 'OFFENSIVE SECURITY'
       },
       {
+        id: 'burp',
+        name: 'Burp Suite & OWASP ZAP',
+        short: 'Burp',
+        category: 'security',
+        icon: 'Crosshair',
+        deployedIn: 'Bug Bounties & Web Audits',
+        role: 'Web Application Penetration Testing',
+        description: 'Intercepting proxies, active/passive scanning, WebSocket tampering, and crafting custom Intruder payloads for WAF bypass.',
+        status: 'RED TEAMING'
+      },
+      {
         id: 'typescript',
         name: 'TypeScript & JavaScript (ESNext)',
         short: 'TS / JS',

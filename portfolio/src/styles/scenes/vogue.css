@@ -1,0 +1,364 @@
+/* ==========================================================================
+   THE BUREAU — VOGUE EDITORIAL STYLE (ABOUT ME)
+   ========================================================================== */
+
+   .vogue-magazine {
+    background-color: #050505; /* Deep, rich black */
+    color: #f4f0e6; /* Editorial cream */
+    font-family: var(--font-body, 'Inter', serif);
+    min-height: 100vh;
+    padding-bottom: 120px;
+    overflow-x: hidden;
+  }
+  
+  /* ── Navigation/Header ────────────────────────────────────── */
+  .vogue-nav {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--space-4) var(--space-6);
+    border-bottom: 1px solid rgba(244, 240, 230, 0.1);
+    position: relative;
+    z-index: 100;
+  }
+  
+  .vogue-back-link {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.75rem;
+    color: var(--color-ash);
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+  }
+  
+  .vogue-back-link:hover {
+    color: var(--color-gold);
+  }
+  
+  .vogue-issue-date {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.75rem;
+    color: var(--color-ash);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  
+  /* ── Cover/Masthead ───────────────────────────────────────── */
+  .vogue-cover {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    min-height: 800px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+  
+  .vogue-cover-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 10%;
+    opacity: 0.5;
+    z-index: 1;
+    filter: contrast(1.1) grayscale(0.2);
+  }
+  
+  .vogue-cover-gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(5,5,5,0.2) 0%, rgba(5,5,5,0.8) 70%, #050505 100%);
+    z-index: 2;
+  }
+  
+  .vogue-masthead {
+    font-family: var(--font-display, 'Cormorant Garamond', serif);
+    font-size: clamp(4.5rem, 12vw, 12rem);
+    font-weight: 300;
+    letter-spacing: -0.05em;
+    color: var(--color-gold, #E8D5B5);
+    line-height: 0.85;
+    z-index: 3;
+    text-transform: uppercase;
+    position: absolute;
+    top: 15%;
+    text-align: center;
+    width: 100%;
+    text-shadow: 0 10px 40px rgba(0,0,0,0.5);
+  }
+  
+  .vogue-cover-headlines {
+    position: absolute;
+    bottom: 15%;
+    left: 5%;
+    right: 5%;
+    z-index: 4;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  
+  .vogue-headline-left, .vogue-headline-right {
+    max-width: 400px;
+  }
+  
+  .vogue-headline-right {
+    text-align: right;
+  }
+  
+  .vogue-sub-mast {
+    font-family: var(--font-display, serif);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-style: italic;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: var(--space-3);
+  }
+  
+  .vogue-cover-text {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.75rem;
+    color: var(--color-gold);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    line-height: 1.5;
+  }
+  
+  /* ── Editorial Spread (Content) ───────────────────────────── */
+  .vogue-spread {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: var(--space-8) var(--space-6);
+    position: relative;
+    z-index: 10;
+  }
+  
+  .vogue-article-title {
+    font-family: var(--font-display, serif);
+    font-size: clamp(3rem, 6vw, 5rem);
+    text-align: center;
+    margin-bottom: var(--space-8);
+    color: var(--color-gold);
+    line-height: 1;
+    font-weight: 400;
+  }
+  
+  .vogue-columns {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: var(--space-6);
+    align-items: start;
+  }
+  
+  .vogue-col-left {
+    grid-column: 1 / 7;
+  }
+  
+  .vogue-col-right {
+    grid-column: 7 / 13;
+  }
+  
+  .vogue-drop-cap {
+    font-family: var(--font-display, serif);
+    font-size: 5rem;
+    float: left;
+    line-height: 0.7;
+    padding-top: 8px;
+    padding-right: 12px;
+    color: var(--color-gold);
+  }
+  
+  .vogue-paragraph {
+    font-family: var(--font-body, serif); /* often magazines use serif body, but sans is ok */
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: #d4d0c5;
+    margin-bottom: var(--space-5);
+    text-align: justify;
+  }
+  
+  .vogue-paragraph em {
+    font-family: var(--font-display, serif);
+    font-size: 1.3rem;
+    color: var(--color-gold);
+    font-style: italic;
+  }
+  
+  .vogue-pullquote-container {
+    grid-column: 3 / 11;
+    margin: var(--space-8) 0;
+    text-align: center;
+    position: relative;
+  }
+  
+  .vogue-pullquote {
+    font-family: var(--font-display, serif);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    line-height: 1.2;
+    color: var(--color-gold);
+    font-style: italic;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .vogue-pullquote::before, .vogue-pullquote::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 1px;
+    background-color: var(--color-gold);
+    margin: var(--space-4) auto;
+  }
+  
+  /* ── Image Breakouts ──────────────────────────────────────── */
+  .vogue-image-full {
+    grid-column: 1 / 13;
+    margin: var(--space-7) 0;
+    position: relative;
+  }
+  
+  .vogue-image-full img {
+    width: 100%;
+    height: 600px;
+    object-fit: cover;
+    filter: grayscale(0.3) contrast(1.1);
+  }
+  
+  .vogue-image-caption {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.7rem;
+    color: var(--color-ash);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: var(--space-3);
+    text-align: right;
+  }
+  
+  .vogue-image-half {
+    grid-column: 2 / 12;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-5);
+    margin: var(--space-6) 0;
+  }
+  
+  .vogue-image-half img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    filter: grayscale(0.2) contrast(1.1);
+  }
+  
+  /* ── Interactive Explore Section (Vogue Style) ────────────── */
+  .vogue-explore {
+    grid-column: 1 / 13;
+    margin-top: var(--space-9);
+    border-top: 1px solid rgba(232, 213, 181, 0.3);
+    padding-top: var(--space-8);
+  }
+  
+  .vogue-explore-title {
+    font-family: var(--font-display, serif);
+    font-size: 2.5rem;
+    text-align: center;
+    color: var(--color-gold);
+    margin-bottom: var(--space-6);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  
+  .vogue-explore-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-4);
+  }
+  
+  .vogue-explore-card {
+    display: block;
+    padding: var(--space-5);
+    border: 1px solid rgba(232, 213, 181, 0.1);
+    text-decoration: none;
+    transition: all 0.4s ease;
+    text-align: center;
+    background: rgba(255,255,255,0.02);
+  }
+  
+  .vogue-explore-card:hover {
+    border-color: var(--color-gold);
+    background: rgba(232, 213, 181, 0.05);
+    transform: translateY(-5px);
+  }
+  
+  .vogue-explore-icon {
+    font-size: 2rem;
+    color: var(--color-gold);
+    margin-bottom: var(--space-3);
+    display: block;
+  }
+  
+  .vogue-explore-label {
+    font-family: var(--font-display, serif);
+    font-size: 1.5rem;
+    color: #fff;
+    font-style: italic;
+    display: block;
+    margin-bottom: var(--space-2);
+  }
+  
+  .vogue-explore-sub {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.65rem;
+    color: var(--color-ash);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  
+  /* ── Responsive ───────────────────────────────────────────── */
+  @media (max-width: 1024px) {
+    .vogue-cover-headlines {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: var(--space-5);
+      bottom: 10%;
+    }
+    
+    .vogue-headline-right {
+      text-align: center;
+    }
+    
+    .vogue-col-left, .vogue-col-right {
+      grid-column: 1 / 13;
+    }
+    
+    .vogue-image-half {
+      grid-column: 1 / 13;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .vogue-masthead {
+      font-size: 4.5rem;
+      top: 20%;
+    }
+    
+    .vogue-sub-mast {
+      font-size: 1.8rem;
+    }
+    
+    .vogue-image-half {
+      grid-template-columns: 1fr;
+    }
+    
+    .vogue-pullquote-container {
+      grid-column: 1 / 13;
+    }
+    
+    .vogue-pullquote {
+      font-size: 1.8rem;
+    }
+  }

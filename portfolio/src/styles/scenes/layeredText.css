@@ -1,0 +1,45 @@
+/* ==========================================================================
+   THE BUREAU — LAYERED TEXT (Isometric 3D Hover Effect)
+   ========================================================================== */
+
+.layered-text-container {
+  margin: 0 auto;
+  padding: var(--space-7) 0;
+  font-family: var(--font-display, 'Cormorant Garamond', serif);
+  font-weight: 900;
+  letter-spacing: -2px;
+  text-transform: uppercase;
+  color: var(--color-gold, #E8D5B5);
+  -webkit-font-smoothing: antialiased;
+  cursor: pointer;
+  user-select: none;
+}
+
+.layered-text-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.layered-text-item {
+  overflow: hidden;
+  position: relative;
+}
+
+.layered-text-line {
+  padding: 0 15px;
+  vertical-align: top;
+  white-space: nowrap;
+  margin: 0;
+}
+
+/* Responsive font size */
+@media (max-width: 768px) {
+  .layered-text-container {
+    font-size: 36px !important;
+    padding: var(--space-5) 0;
+  }
+}

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Terminal, ShieldAlert, Zap, Compass, Film, Cpu, Utensils, Gauge, HelpCircle, Image as ImageIcon, Volume2, Shield, Lock, X } from 'lucide-react';
+import { ArrowLeft, Terminal, ShieldAlert, Zap, Compass, Film, Cpu, Utensils, Gauge, HelpCircle, Image as ImageIcon, Volume2, Shield, Lock, X, Layers } from 'lucide-react';
 import '../styles/scenes/vault.css';
 
 import { VaultSecrets } from '../components/vault/VaultSecrets';
@@ -10,6 +10,7 @@ import { VaultHardware } from '../components/vault/VaultHardware';
 import { VaultFood } from '../components/vault/VaultFood';
 import { VaultGarage } from '../components/vault/VaultGarage';
 import { VaultQuiz } from '../components/vault/VaultQuiz';
+import LegoTechStack from '../components/ui/LegoTechStack';
 
 const TABS = [
   { id: 'GARAGE', label: '🏎️ 128+ GARAGE', icon: Gauge },
@@ -294,7 +295,7 @@ const SecretProtocols = () => {
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontFamily: 'var(--font-mono)' }}>
                 <Link 
-                  to="/timeline"
+                  to="/build-stack"
                   style={{
                     display: 'flex',
                     justifyContent: 'space-between',
@@ -311,10 +312,10 @@ const SecretProtocols = () => {
                 >
                   <div>
                     <div style={{ color: '#FFF', fontSize: '0.95rem', fontWeight: 'bold' }}>
-                      /timeline — MILESTONES & CAREER HISTORY
+                      /build-stack — INTERACTIVE STACK BUILDER
                     </div>
                     <div style={{ fontSize: '0.8rem', color: '#8E8D8A', marginTop: '4px' }}>
-                      Chronological visual timeline of hackathon victories, research publications, and career milestones.
+                      Make your own architecture! Interactive 20+ brick playground to mix and match technologies.
                     </div>
                   </div>
                   <span style={{ color: 'var(--color-gold)' }}>↗ OPEN</span>

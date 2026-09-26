@@ -20,27 +20,18 @@ const Nav = ({ onTransmitClick }) => {
     setMobileOpen(false);
   }, [location.pathname]);
 
-  const handleAboutClick = (e) => {
-    e.preventDefault();
-    setMobileOpen(false);
-    if (location.pathname !== '/') {
-      navigate('/');
-      setTimeout(() => {
-        const el = document.getElementById('person-dossier');
-        if (el) {
-          if (lenisInstance) lenisInstance.scrollTo(el);
-          else el.scrollIntoView({ behavior: 'smooth' });
-        }
-      }, 100);
-    } else {
-      const el = document.getElementById('person-dossier');
-      if (el) {
-        if (lenisInstance) lenisInstance.scrollTo(el);
-        else el.scrollIntoView({ behavior: 'smooth' });
+  const handleLogoClick = (e) => {
+    if (location.pathname === '/') {
+      e.preventDefault();
+      setMobileOpen(false);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (lenisInstance) {
+        lenisInstance.scrollTo(0, { immediate: false });
       }
+    } else {
+      setMobileOpen(false);
     }
   };
-
   const handleContactClick = (e) => {
     e.preventDefault();
     setMobileOpen(false);
@@ -64,13 +55,13 @@ const Nav = ({ onTransmitClick }) => {
 
       <div className="nav-container">
         {/* Left Side: Logo */}
-        <Link to="/" className="nav-logo" onClick={() => setMobileOpen(false)}>
+        <Link to="/" className="nav-logo" onClick={handleLogoClick}>
           CALVIN <span className="nav-logo-badge">DSOUZA</span>
         </Link>
 
         {/* Desktop Nav — 5 clear items */}
         <nav className="nav-links">
-          <a href="#" onClick={handleAboutClick} className="nav-link">ABOUT</a>
+          <Link to="/me" className="nav-link">ABOUT ME</Link>
           <Link to="/work" className="nav-link">WORK</Link>
           <Link to="/writing" className="nav-link">WRITING</Link>
           <Link to="/gallery" className="nav-link">GALLERY</Link>
@@ -94,9 +85,9 @@ const Nav = ({ onTransmitClick }) => {
       {/* Mobile Drawer */}
       <div className={`nav-mobile-drawer ${mobileOpen ? 'open' : ''}`}>
         <div className="mobile-drawer-links">
-          <a href="#" className="mobile-nav-link" onClick={(e) => { e.preventDefault(); handleAboutClick(e); }}>
-            <span className="mobile-link-num">01</span> ABOUT
-          </a>
+          <Link to="/me" className="mobile-nav-link" onClick={() => setMobileOpen(false)}>
+            <span className="mobile-link-num">01</span> ABOUT ME
+          </Link>
           <Link to="/work" className="mobile-nav-link" onClick={() => setMobileOpen(false)}>
             <span className="mobile-link-num">02</span> WORK
           </Link>

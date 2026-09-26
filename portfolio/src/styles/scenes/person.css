@@ -1,4 +1,4 @@
-/* ── Scene: DOSSIER DASHBOARD ─────────────────────────────── */
+/* ── Scene: THE PERSON — DOSSIER DASHBOARD ──────────────────── */
 
 .dossier-scene {
   background-color: var(--color-bg-dark);
@@ -22,6 +22,399 @@
   z-index: 10;
   background-color: var(--color-bg-dark);
 }
+
+/* ══════════════════════════════════════════════════════════════
+   SHORT BIO BLOCK (Main Page)
+   ══════════════════════════════════════════════════════════════ */
+
+.person-bio-block {
+  max-width: 900px;
+  margin: 0 auto var(--space-7) auto;
+  padding: var(--space-4) 0;
+}
+
+.person-bio-paragraph {
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 1.3vw, 1.25rem);
+  line-height: 1.8;
+  color: var(--color-silver);
+  margin: 0 0 var(--space-5) 0;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.person-bio-paragraph:hover {
+  transform: scale(1.05);
+  color: var(--color-cream);
+}
+
+/* Make the first paragraph stand out as a hook */
+.bio-lead {
+  font-size: clamp(1.2rem, 1.6vw, 1.5rem);
+  color: var(--color-cream);
+  line-height: 1.6;
+}
+
+.bio-lead .bio-word:first-child {
+  font-family: var(--font-display);
+  font-size: 2em;
+  color: var(--color-gold);
+  line-height: 0.8;
+  padding-right: 2px;
+  text-shadow: 0 0 15px rgba(232, 213, 181, 0.4);
+}
+
+.bio-word {
+  display: inline-block;
+  margin: 0 0.15em; /* Distribute space evenly */
+  transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform-origin: center bottom;
+  cursor: crosshair;
+}
+
+/* Highlight important keywords */
+.bio-word-highlight {
+  color: var(--color-gold);
+  font-style: italic;
+  opacity: 0.9;
+}
+
+/* Hovered word */
+.bio-word:hover {
+  transform: scale(1.4) translateY(-4px);
+  margin: 0 0.6em; /* Pushes adjacent words away to make room */
+  color: var(--color-gold);
+  text-shadow: 0 8px 24px rgba(232, 213, 181, 0.5);
+  z-index: 10;
+  position: relative;
+  font-weight: 500;
+  opacity: 1;
+}
+
+/* Previous word */
+.bio-word:has(+ .bio-word:hover) {
+  transform: scale(1.15) translateY(-2px);
+  margin-right: 0.3em; /* Give a bit more space to the hovered word */
+  color: var(--color-white);
+  text-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+}
+
+/* Next word */
+.bio-word:hover + .bio-word {
+  transform: scale(1.15) translateY(-2px);
+  margin-left: 0.3em; /* Give a bit more space to the hovered word */
+  color: var(--color-white);
+  text-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+}
+
+.person-bio-paragraph:last-of-type {
+  margin-bottom: var(--space-5);
+}
+
+.person-readmore-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 1.2vw, 1.15rem);
+  font-style: italic;
+  color: var(--color-gold);
+  text-decoration: none;
+  padding: var(--space-3) 0;
+  transition: all 0.3s ease;
+  border-bottom: 1px solid rgba(232, 213, 181, 0.2);
+}
+
+.person-readmore-link:hover {
+  color: var(--color-violet);
+  border-bottom-color: var(--color-violet);
+  text-shadow: 0 0 12px rgba(139, 92, 246, 0.4);
+}
+
+.person-readmore-arrow {
+  transition: transform 0.3s ease;
+}
+
+.person-readmore-link:hover .person-readmore-arrow {
+  transform: translateX(6px);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   ABOUT ME PAGE — Back Link
+   ══════════════════════════════════════════════════════════════ */
+
+.about-me-page {
+  min-height: 100vh;
+  padding-top: 120px;
+}
+
+.about-me-back {
+  margin-bottom: var(--space-6);
+}
+
+.about-me-back-link {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-ash);
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.about-me-back-link:hover {
+  color: var(--color-gold);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   PERSONAL ESSAY (About Me Page)
+   ══════════════════════════════════════════════════════════════ */
+
+.person-essay {
+  max-width: 780px;
+  margin: 0 auto var(--space-8) auto;
+  padding: var(--space-6) 0;
+  position: relative;
+}
+
+.person-essay::before {
+  content: '✦';
+  display: block;
+  text-align: center;
+  font-size: 1rem;
+  color: var(--color-gold);
+  margin-bottom: var(--space-5);
+  letter-spacing: 0.5em;
+  opacity: 0.6;
+}
+
+.person-essay-inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.person-essay-paragraph {
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 1.15vw, 1.15rem);
+  line-height: 1.85;
+  color: var(--color-graphite);
+  margin: 0;
+  text-align: left;
+}
+
+.person-essay-paragraph em {
+  color: var(--color-gold);
+  font-style: italic;
+  font-weight: 500;
+}
+
+.person-essay-opener {
+  font-size: clamp(1.08rem, 1.3vw, 1.25rem);
+  color: var(--color-cream);
+  line-height: 1.9;
+}
+
+.person-essay-opener::first-letter {
+  font-family: var(--font-display);
+  font-size: 3.2em;
+  float: left;
+  line-height: 0.85;
+  margin-right: 10px;
+  margin-top: 6px;
+  color: var(--color-gold);
+  font-weight: 600;
+  text-shadow: 0 0 20px rgba(232, 213, 181, 0.3);
+}
+
+.person-essay-closing {
+  color: var(--color-cream);
+  font-weight: 500;
+  border-left: 2px solid var(--color-gold);
+  padding-left: var(--space-4);
+  margin-top: var(--space-3);
+}
+
+.person-essay-highlight {
+  background: linear-gradient(120deg, rgba(232, 213, 181, 0.15) 0%, rgba(139, 92, 246, 0.1) 100%);
+  padding: 2px 8px;
+  border-radius: 3px;
+  color: var(--color-gold);
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  letter-spacing: 0.02em;
+}
+
+/* ── Pull Quote ──────────────────────────────────────────── */
+
+.person-pullquote {
+  position: relative;
+  margin: var(--space-5) 0;
+  padding: var(--space-5) var(--space-6);
+  border-left: 3px solid var(--color-gold);
+  background: linear-gradient(135deg, rgba(232, 213, 181, 0.04) 0%, rgba(139, 92, 246, 0.03) 100%);
+}
+
+.pullquote-mark {
+  position: absolute;
+  top: -10px;
+  left: var(--space-4);
+  font-size: 2.2rem;
+  color: var(--color-gold);
+  opacity: 0.5;
+  line-height: 1;
+}
+
+.person-pullquote blockquote {
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 2vw, 1.8rem);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--color-cream);
+  line-height: 1.5;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.pullquote-attribution {
+  display: block;
+  margin-top: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--color-ash);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   EXPLORE ME LINKS (About Me Page)
+   ══════════════════════════════════════════════════════════════ */
+
+.person-explore-block {
+  max-width: 780px;
+  margin: 0 auto var(--space-8) auto;
+  padding: var(--space-6) 0;
+  border-top: 1px solid rgba(232, 213, 181, 0.15);
+  position: relative;
+}
+
+.explore-heading {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  color: var(--color-cream);
+  margin-bottom: var(--space-6);
+  text-align: center;
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: -0.01em;
+}
+
+.explore-links-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.explore-link-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-5);
+  border: 1px solid rgba(232, 213, 181, 0.1);
+  background: rgba(18, 16, 24, 0.5);
+  text-decoration: none;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.explore-link-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(232, 213, 181, 0.06) 0%, transparent 100%);
+  transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.explore-link-item:hover {
+  border-color: var(--color-gold);
+  background: rgba(232, 213, 181, 0.04);
+  transform: translateX(8px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), 0 0 20px rgba(232, 213, 181, 0.08);
+  text-shadow: none;
+}
+
+.explore-link-item:hover::before {
+  width: 100%;
+}
+
+.explore-link-icon {
+  font-size: 1.4rem;
+  color: var(--color-gold);
+  flex-shrink: 0;
+  width: 32px;
+  text-align: center;
+  line-height: 1.4;
+  opacity: 0.7;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.explore-link-item:hover .explore-link-icon {
+  opacity: 1;
+  transform: scale(1.15);
+}
+
+.explore-link-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 1.3vw, 1.2rem);
+  color: var(--color-cream);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.4;
+  position: relative;
+  z-index: 1;
+}
+
+.explore-link-sub {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--color-ash);
+  letter-spacing: 0.08em;
+  font-style: normal;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+
+.explore-link-item:hover .explore-link-sub {
+  color: var(--color-gold);
+}
+
+.explore-scroll-hint {
+  text-align: center;
+  margin-top: var(--space-6);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-ash);
+  letter-spacing: 0.15em;
+  animation: gentleBob 3s ease-in-out infinite;
+}
+
+@keyframes gentleBob {
+  0%, 100% { transform: translateY(0); opacity: 0.5; }
+  50% { transform: translateY(6px); opacity: 1; }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   DOSSIER GRID — Identity Card + Record
+   ══════════════════════════════════════════════════════════════ */
 
 /* Main 2-column grid */
 .dossier-grid {
@@ -389,6 +782,23 @@
   .record-card-summary {
     font-size: 0.72rem;
   }
+
+  .person-essay {
+    padding: var(--space-4) 0;
+  }
+
+  .person-pullquote {
+    padding: var(--space-4);
+  }
+
+  .explore-link-item {
+    padding: var(--space-3) var(--space-4);
+    gap: var(--space-3);
+  }
+
+  .about-me-page {
+    padding-top: 90px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -411,5 +821,14 @@
 
   .record-entry-result {
     font-size: 0.6rem;
+  }
+
+  .person-essay-opener::first-letter {
+    font-size: 2.6em;
+    margin-right: 6px;
+  }
+
+  .explore-link-icon {
+    display: none;
   }
 }

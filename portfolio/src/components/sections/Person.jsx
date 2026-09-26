@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { profile } from '../../data/profile';
@@ -43,6 +44,21 @@ const Person = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
+      gsap.fromTo('.person-bio-block',
+        { y: 30, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.9,
+          ease: 'power3.out',
+          clearProps: 'all',
+          scrollTrigger: {
+            trigger: '.person-bio-block',
+            start: 'top 85%',
+          }
+        }
+      );
+
       gsap.fromTo('.dossier-identity', 
         { x: -40, opacity: 0 },
         {
@@ -72,10 +88,35 @@ const Person = () => {
       <div className="bureau-container">
 
         <div className="dossier-label-bar">
-          <span className="dossier-label">CLASSIFIED DOSSIER</span>
-          <span className="dossier-label">SUBJECT 001 // ACTIVE</span>
+          <span className="dossier-label">THE PERSON</span>
+          <span className="dossier-label">PROFILE // CLASSIFIED</span>
         </div>
 
+        {/* ── Short Bio ──────────────────────────────────────────── */}
+        <div className="person-bio-block">
+          {profile.bio.map((paragraph, i) => {
+            const keywords = ['machines', 'systems', 'architect', 'explorer', 'Cybersecurity', 'NMAMIT', 'Calvin'];
+            return (
+              <p key={i} className={`person-bio-paragraph ${i === 0 ? 'bio-lead' : ''}`}>
+                {paragraph.split(' ').map((word, w) => {
+                  const cleanWord = word.replace(/[^a-zA-Z0-9]/g, '');
+                  const isHighlight = keywords.some(k => cleanWord.toLowerCase() === k.toLowerCase());
+                  
+                  return (
+                    <span key={`${i}-${w}`} className={`bio-word ${isHighlight ? 'bio-word-highlight' : ''}`}>
+                      {word}
+                    </span>
+                  );
+                })}
+              </p>
+            );
+          })}
+          <Link to="/me" className="person-readmore-link">
+            Read more about me <span className="person-readmore-arrow">→</span>
+          </Link>
+        </div>
+
+        {/* ── Dossier Grid ───────────────────────────────────────── */}
         <div className="dossier-grid">
 
           {/* LEFT — Identity Card */}
@@ -117,8 +158,6 @@ const Person = () => {
                 </div>
               ))}
             </div>
-
-
 
             <div className="identity-links" style={{ display: 'flex', justifyContent: 'center', marginTop: 'var(--space-4)' }}>
               <SocialCard />

@@ -1,0 +1,438 @@
+/* ==========================================================================
+   THE BUREAU — LEGO TECH STACK BUILDER
+   ========================================================================== */
+
+.lego-tech-stage {
+  width: 100%;
+  min-height: 600px;
+  position: relative;
+  overflow: visible;
+  user-select: none;
+  font-family: var(--font-body, 'Inter', sans-serif);
+  padding: var(--space-6) 0;
+}
+
+.lego-tech-layout {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 80px;
+  position: relative;
+  z-index: 10;
+  padding: var(--space-6) var(--space-5);
+  width: 100%;
+}
+
+/* ── Palette (Left) ────────────────────────────────────────── */
+
+.lego-tech-palette {
+  flex: 1;
+  max-width: 850px;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.lego-palette-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  color: var(--color-gold, #E8D5B5);
+  margin-bottom: var(--space-5);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.lego-palette-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 10px #10B981;
+  animation: legoPulse 2s infinite ease-in-out;
+}
+
+.lego-palette-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 20px;
+  position: relative;
+  z-index: 20;
+  min-height: 200px;
+}
+
+/* ── Tower Area (Right) ────────────────────────────────────── */
+
+.lego-tech-tower-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 48px;
+  width: auto;
+  margin-top: 64px;
+}
+
+.lego-tower-scale {
+  transform-origin: bottom;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.lego-tower-wrapper {
+  position: relative;
+  width: 390px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
+  transition: all 700ms ease-out;
+}
+
+.lego-tower-stack {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 0;
+  z-index: 20;
+}
+
+.lego-tower-block {
+  position: absolute;
+}
+
+/* ── Module Wrapper ────────────────────────────────────────── */
+
+.lego-module-wrapper {
+  z-index: 50;
+  position: relative;
+}
+
+.lego-module-btn {
+  cursor: pointer;
+  width: 100%;
+  flex-shrink: 0;
+  touch-action: none;
+  position: relative;
+  border: none;
+  background: none;
+  padding: 0;
+  text-align: left;
+  border-radius: 8px;
+  transition: transform 200ms ease, box-shadow 200ms ease;
+  outline: none;
+}
+
+.lego-module-btn:hover {
+  transform: translateY(-6px);
+}
+
+.lego-module-btn:active {
+  transform: scale(0.95);
+}
+
+.lego-module-btn:focus-visible {
+  outline: 4px solid var(--color-gold);
+  outline-offset: 4px;
+}
+
+.lego-module-hover-overlay {
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  transition: background 0.2s ease;
+  z-index: 30;
+  border-radius: 8px;
+  pointer-events: none;
+}
+
+.lego-module-btn:hover .lego-module-hover-overlay {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.lego-module-inner {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 60px;
+  padding: 0 16px;
+  gap: 12px;
+}
+
+.lego-module-inner.compact {
+  padding: 0 12px;
+  gap: 10px;
+}
+
+.lego-module-icon-box {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.lego-module-icon-box.compact {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+}
+
+.lego-module-name {
+  font-family: var(--font-body, sans-serif);
+  font-weight: 700;
+  color: white;
+  font-size: 17px;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+  margin: 0;
+}
+
+/* ── Lego Block Internals ──────────────────────────────────── */
+
+.lego-block {
+  position: relative;
+  width: 100%;
+}
+
+.lego-block-top {
+  position: relative;
+  width: 100%;
+  box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.28);
+}
+
+.lego-studs-row {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  width: 100%;
+  display: flex;
+}
+
+.lego-stud-spacer {
+  flex: 1;
+}
+
+.lego-stud-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  position: relative;
+}
+
+.lego-stud-shadow {
+  position: absolute;
+  bottom: -3px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 75%;
+  height: 10px;
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.lego-stud-body {
+  position: relative;
+  z-index: 10;
+  margin-bottom: -1px;
+}
+
+.lego-stud-wall {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  border-radius: 50% / 20%;
+}
+
+.lego-stud-wall-shine {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 25%;
+  left: 20%;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.25), transparent);
+}
+
+.lego-stud-cap {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: inset 0px 2px 4px rgba(255, 255, 255, 0.6),
+    inset 0px -2px 4px rgba(0, 0, 0, 0.2),
+    0px 1px 1px rgba(0, 0, 0, 0.4);
+}
+
+.lego-stud-text {
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  user-select: none;
+  pointer-events: none;
+  opacity: 0.8;
+  color: rgba(0, 0, 0, 0.15);
+  text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.6);
+  transform: scaleY(0.55) translateY(-1px);
+}
+
+.lego-block-face {
+  position: relative;
+  width: 100%;
+  border-left: 1px solid rgba(0, 0, 0, 0.05);
+  border-right: 1px solid rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  box-shadow: inset 0px 2px 6px rgba(255, 255, 255, 0.47);
+}
+
+.lego-block-highlight {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.lego-block-content {
+  position: relative;
+  z-index: 30;
+}
+
+.lego-block-bottom {
+  position: relative;
+  width: 100%;
+  box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+/* ── Profile Base Face ─────────────────────────────────────── */
+
+.lego-base-block {
+  position: relative;
+  z-index: 10;
+}
+
+.lego-profile-face {
+  padding: 16px 20px 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.lego-profile-icon-box {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
+  flex-shrink: 0;
+}
+
+.lego-profile-info {
+  color: white;
+}
+
+.lego-profile-name {
+  font-family: var(--font-body, sans-serif);
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: 0.03em;
+  margin: 0;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.lego-profile-xp {
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.8);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin: 6px 0 0;
+}
+
+/* ── CTA Area ──────────────────────────────────────────────── */
+
+.lego-cta-area {
+  height: 60px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 16px;
+  gap: 12px;
+}
+
+.lego-cta-text {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.75rem;
+  color: var(--color-gold, #E8D5B5);
+  letter-spacing: 0.1em;
+  text-align: center;
+}
+
+/* ── Animations ────────────────────────────────────────────── */
+
+@keyframes legoPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.6); opacity: 0.4; }
+}
+
+/* ── Responsive ────────────────────────────────────────────── */
+
+@media (max-width: 1024px) {
+  .lego-tech-layout {
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  .lego-tech-palette {
+    max-width: 100%;
+    align-items: center;
+  }
+
+  .lego-palette-grid {
+    justify-content: center;
+  }
+
+  .lego-tech-tower-area {
+    margin-top: 0;
+  }
+
+  .lego-tower-scale {
+    transform: scale(0.8);
+  }
+}
+
+@media (max-width: 640px) {
+  .lego-tower-scale {
+    transform: scale(0.7);
+  }
+
+  .lego-tower-wrapper {
+    width: 340px;
+  }
+
+  .lego-tech-layout {
+    padding: var(--space-4) var(--space-3);
+  }
+}
