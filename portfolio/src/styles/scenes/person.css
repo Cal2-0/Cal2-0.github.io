@@ -832,3 +832,22 @@
     display: none;
   }
 }
+
+/* Touchscreen hygiene: disable stuck hover zoom on mobile phones */
+@media (hover: none) {
+  .person-bio-paragraph:hover {
+    transform: none;
+  }
+
+  .bio-word:hover {
+    transform: none;
+    margin: 0 0.15em;
+    text-shadow: none;
+  }
+
+  .bio-word:has(+ .bio-word:hover),
+  .bio-word:hover + .bio-word {
+    transform: none;
+    margin: 0 0.15em;
+  }
+}

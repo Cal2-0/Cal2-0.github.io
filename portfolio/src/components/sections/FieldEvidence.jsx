@@ -55,9 +55,9 @@ const FieldEvidence = () => {
   });
 
   return (
-    <section className="evidence-scene" ref={evidenceRef} style={{ paddingBottom: '6rem' }}>
+    <section className="evidence-scene" ref={evidenceRef}>
       <div className="bureau-container">
-        <div className="evidence-header" style={{ marginBottom: '4rem' }}>
+        <div className="evidence-header" style={{ marginBottom: '1.5rem' }}>
           <h2 className="evidence-title">FIELD EVIDENCE</h2>
           <span className="evidence-subtitle">VERIFIABLE CLAIMS // EVENTS</span>
         </div>

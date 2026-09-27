@@ -59,13 +59,21 @@ const Nav = ({ onTransmitClick }) => {
           CALVIN <span className="nav-logo-badge">DSOUZA</span>
         </Link>
 
-        {/* Desktop Nav — 5 clear items */}
+        {/* Desktop Nav — clear items + CLI trigger */}
         <nav className="nav-links">
           <Link to="/me" className="nav-link">ABOUT ME</Link>
           <Link to="/work" className="nav-link">WORK</Link>
           <Link to="/writing" className="nav-link">WRITING</Link>
           <Link to="/gallery" className="nav-link">GALLERY</Link>
           <a href="/resume.pdf" target="_blank" rel="noreferrer" className="nav-link">RESUME</a>
+          <button 
+            type="button"
+            className="nav-link nav-cli-btn"
+            onClick={() => window.dispatchEvent(new CustomEvent('toggleTerminal'))}
+            title="Open Bureau Terminal CLI (or press `)"
+          >
+            [ &gt;_ CLI ]
+          </button>
           <Magnetic>
             <a href="#" onClick={handleContactClick} className="nav-link nav-cta" style={{ display: 'inline-block' }}>CONTACT</a>
           </Magnetic>
@@ -103,6 +111,17 @@ const Nav = ({ onTransmitClick }) => {
           <Link to="/vault" className="mobile-nav-link" onClick={() => setMobileOpen(false)} style={{ color: 'var(--color-gold, #C5A880)' }}>
             <span className="mobile-link-num" style={{ color: 'var(--color-gold, #C5A880)' }}>06</span> 🏎️ SECRET PROTOCOLS
           </Link>
+          <button
+            type="button"
+            className="mobile-nav-link"
+            style={{ background: 'none', border: 'none', textAlign: 'left', width: '100%', cursor: 'pointer', fontFamily: 'inherit', color: 'var(--color-gold)' }}
+            onClick={() => {
+              setMobileOpen(false);
+              window.dispatchEvent(new CustomEvent('toggleTerminal'));
+            }}
+          >
+            <span className="mobile-link-num" style={{ color: 'var(--color-gold)' }}>07</span> &gt;_ TERMINAL CLI
+          </button>
           <a href="#" onClick={handleContactClick} className="mobile-nav-link mobile-cta">
             CONTACT ↗
           </a>

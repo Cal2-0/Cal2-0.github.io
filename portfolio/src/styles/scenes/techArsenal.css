@@ -5,7 +5,7 @@
 .bureau-arsenal {
   position: relative;
   width: 100%;
-  padding: 100px 0 120px;
+  padding: 40px 0 90px;
   background: radial-gradient(circle at 50% 100%, rgba(26, 22, 38, 0.6) 0%, rgba(10, 10, 11, 0.95) 70%);
   overflow: hidden;
   color: var(--color-ink, #F3F4F6);
@@ -132,6 +132,106 @@
 }
 
 /* ==========================================================================
+   THE CLUSTER CATEGORIES & SUBHEADINGS
+   ========================================================================== */
+
+.arsenal-cluster {
+  width: 100%;
+  max-width: 940px;
+  margin-bottom: 52px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 10;
+}
+
+.arsenal-cluster:last-of-type {
+  margin-bottom: 40px;
+}
+
+.arsenal-cluster-header {
+  text-align: center;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.arsenal-cluster-badge-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
+.arsenal-cluster-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  color: var(--color-gold, #E8D5B5);
+  text-transform: uppercase;
+  background: rgba(232, 213, 181, 0.05);
+  border: 1px solid rgba(232, 213, 181, 0.2);
+  padding: 4px 14px;
+  border-radius: 999px;
+}
+
+.arsenal-cluster-badge.cyber {
+  color: #93C5FD;
+  background: rgba(59, 130, 246, 0.08);
+  border-color: rgba(59, 130, 246, 0.25);
+}
+
+.arsenal-cluster-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 8px #10B981;
+}
+
+.arsenal-cluster-dot.cyber {
+  background: #3B82F6;
+  box-shadow: 0 0 8px #3B82F6;
+}
+
+.arsenal-cluster-count {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  color: var(--color-ash, #6B7280);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: rgba(10, 10, 14, 0.6);
+}
+
+.arsenal-cluster-title {
+  font-family: var(--font-display, 'Cormorant Garamond', Georgia, serif);
+  font-size: clamp(1.8rem, 3.2vw, 2.3rem);
+  font-weight: 400;
+  color: #FFFFFF;
+  margin: 0;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.arsenal-cluster-desc {
+  font-size: clamp(0.88rem, 1.1vw, 0.98rem);
+  color: var(--color-graphite, #9CA3AF);
+  line-height: 1.5;
+  max-width: 660px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* ==========================================================================
    THE SKILL ICONS LAYOUT
    ========================================================================== */
 
@@ -140,15 +240,23 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 20px;
+  width: 100%;
   max-width: 900px;
-  margin: 0 auto 60px;
-  padding: 50px;
-  background: rgba(14, 14, 18, 0.4);
+  margin: 0 auto;
+  padding: 40px 48px;
+  background: rgba(14, 14, 18, 0.45);
   border-radius: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.2), 0 20px 40px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
   position: relative;
   z-index: 10;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.skill-icons-container:hover {
+  border-color: rgba(232, 213, 181, 0.16);
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.2), 0 24px 48px rgba(0, 0, 0, 0.55), 0 0 25px rgba(232, 213, 181, 0.04);
 }
 
 .skill-icon-wrapper {
@@ -426,4 +534,172 @@
   color: var(--color-gold);
   letter-spacing: 0.15em;
   margin-bottom: var(--space-4);
+}
+
+/* ==========================================================================
+   INTERACTIVE ARCHITECTURE LAB BRIDGE
+   ========================================================================== */
+
+.arsenal-bridge-card {
+  width: 100%;
+  max-width: 900px;
+  margin-top: 16px;
+  background: rgba(14, 14, 18, 0.65);
+  border: 1px solid rgba(232, 213, 181, 0.2);
+  border-radius: 16px;
+  padding: 24px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 10;
+}
+
+.arsenal-bridge-card:hover {
+  border-color: rgba(232, 213, 181, 0.45);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6), 0 0 25px rgba(232, 213, 181, 0.1);
+  transform: translateY(-2px);
+}
+
+.bridge-glow-orb {
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 160px;
+  height: 160px;
+  background: radial-gradient(circle, rgba(232, 213, 181, 0.12) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.bridge-content {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.bridge-tag-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.bridge-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-gold, #E8D5B5);
+  box-shadow: 0 0 6px var(--color-gold, #E8D5B5);
+}
+
+.bridge-tag {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  color: var(--color-gold, #E8D5B5);
+  text-transform: uppercase;
+}
+
+.bridge-title {
+  font-family: var(--font-display, 'Cormorant Garamond', Georgia, serif);
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #FFFFFF;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.bridge-desc {
+  font-size: 0.88rem;
+  color: var(--color-graphite, #9CA3AF);
+  margin: 0;
+  max-width: 520px;
+  line-height: 1.5;
+}
+
+.bridge-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(232, 213, 181, 0.08);
+  border: 1px solid rgba(232, 213, 181, 0.35);
+  color: var(--color-gold, #E8D5B5);
+  font-family: var(--font-mono, monospace);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  padding: 12px 22px;
+  border-radius: 6px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.25s ease;
+  flex-shrink: 0;
+}
+
+.bridge-action-btn:hover {
+  background: var(--color-gold, #E8D5B5);
+  color: #0A0A0B;
+  box-shadow: 0 0 20px rgba(232, 213, 181, 0.3);
+}
+
+.bridge-btn-arrow {
+  transition: transform 0.25s ease;
+}
+
+.bridge-action-btn:hover .bridge-btn-arrow {
+  transform: translateX(4px);
+}
+
+@media (max-width: 768px) {
+  .skill-icons-container {
+    padding: 24px 18px;
+    gap: 14px;
+    border-radius: 16px;
+  }
+  .skill-icon-img {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+  }
+  .arsenal-cluster {
+    margin-bottom: 36px;
+  }
+  .arsenal-bridge-card {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+    gap: 16px;
+  }
+  .bridge-action-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .skill-icons-container {
+    padding: 18px 12px;
+    gap: 10px;
+    border-radius: 14px;
+  }
+  .skill-icon-img {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+  }
+  .arsenal-cluster-title {
+    font-size: 1.5rem;
+  }
+  .arsenal-cluster-desc {
+    font-size: 0.82rem;
+  }
+  .arsenal-cluster-badge-row {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
 }

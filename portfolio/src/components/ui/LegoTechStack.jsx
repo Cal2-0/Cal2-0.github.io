@@ -24,7 +24,9 @@ import {
   Cloud,
   Settings,
   PenTool,
-  Hash
+  Hash,
+  RotateCcw,
+  Sparkles
 } from 'lucide-react';
 import '../../styles/scenes/legoTech.css';
 
@@ -197,7 +199,21 @@ const MODULES = [
   { id: 'cloudflare', name: 'Cloudflare', desc: 'CDN / Edge', icon: Cloud, studs: 2, colors: { topColor: '#E8D5B5', faceGradient: 'linear-gradient(180deg, #F5E6CC 0%, #E8D5B5 50%, #B59661 100%)', bottomColor: '#8B6914', studColor: 'gold' } },
   { id: 'blockchain', name: 'EVM / Solidity', desc: 'Smart Contracts', icon: Layers, studs: 3, colors: { topColor: '#27272a', faceGradient: 'linear-gradient(180deg, #3f3f46 0%, #27272a 50%, #18181b 100%)', bottomColor: '#09090b', studColor: 'dark' } },
   { id: 'systems', name: 'C / C++', desc: 'Low-level', icon: Settings, studs: 2, colors: { topColor: '#3b82f6', faceGradient: 'linear-gradient(180deg, #60a5fa 0%, #3b82f6 50%, #2563eb 100%)', bottomColor: '#1e3a8a', studColor: 'blue' } },
-  { id: 'bash', name: 'Bash', desc: 'Scripting', icon: Terminal, studs: 1, colors: { topColor: '#27272a', faceGradient: 'linear-gradient(180deg, #3f3f46 0%, #27272a 50%, #18181b 100%)', bottomColor: '#09090b', studColor: 'dark' } }
+];
+
+/* ─── DEFAULT MY STACK (Preloaded architecture) ────────────── */
+export const DEFAULT_MY_STACK = [
+  'react',
+  'nextjs',
+  'tailwind',
+  'python',
+  'fastapi',
+  'redis',
+  'postgres',
+  'docker',
+  'linux',
+  'aws',
+  'forensics'
 ];
 
 /* ─── MODULE BLOCK ──────────────────────────────────────────── */
@@ -280,11 +296,16 @@ const ModuleBlock = ({
 
 /* ─── MAIN COMPONENT ────────────────────────────────────────── */
 const LegoTechStack = ({ modules = MODULES, className = '' }) => {
-  const [equippedIds, setEquippedIds] = useState([]);
+  const [equippedIds, setEquippedIds] = useState(DEFAULT_MY_STACK);
   const [animatingBlocks, setAnimatingBlocks] = useState({});
   const controls = useAnimation();
   const mouseX = useMotionValue(50);
   const mouseY = useMotionValue(50);
+
+  const isDefaultStack = useMemo(() => {
+    if (equippedIds.length !== DEFAULT_MY_STACK.length) return false;
+    return DEFAULT_MY_STACK.every((id) => equippedIds.includes(id));
+  }, [equippedIds]);
 
   const handlePointerMove = (e) => {
     mouseX.set((e.clientX / window.innerWidth) * 100);
@@ -310,7 +331,19 @@ const LegoTechStack = ({ modules = MODULES, className = '' }) => {
     }, 1080);
   };
 
-  const equippedModules = equippedIds.map((id) => modules.find((m) => m.id === id));
+  const handleRestart = () => {
+    setAnimatingBlocks({});
+    setEquippedIds([]);
+  };
+
+  const handleLoadDefault = () => {
+    setAnimatingBlocks({});
+    setEquippedIds([...DEFAULT_MY_STACK]);
+  };
+
+  const equippedModules = equippedIds
+    .map((id) => modules.find((m) => m.id === id))
+    .filter(Boolean);
   const unequippedModules = modules.filter((m) => !equippedIds.includes(m.id));
 
   const { grid, positionedModules } = useMemo(() => {
@@ -362,12 +395,62 @@ const LegoTechStack = ({ modules = MODULES, className = '' }) => {
 
   return (
     <div onPointerMove={handlePointerMove} className={`lego-tech-stage ${className}`}>
+      {/* ── TOP CONTROL DECK (Quick restart/play & default stack restore) ── */}
+      <div className="lego-control-deck">
+        <div className="lego-control-status">
+          <span
+            className={`lego-status-pill ${
+              isDefaultStack
+                ? 'active-default'
+                : equippedIds.length === 0
+                ? 'active-empty'
+                : 'active-custom'
+            }`}
+          >
+            <span className="lego-status-indicator-dot" />
+            <span className="lego-status-text">
+              {isDefaultStack
+                ? "ACTIVE ARCHITECTURE: MY VERIFIED PRODUCTION STACK"
+                : equippedIds.length === 0
+                ? "PLAYGROUND CANVAS: EMPTY — ASSEMBLE YOUR ARCHITECTURE"
+                : `CUSTOM ARCHITECTURE: ${equippedIds.length} DISCIPLINES EQUIPPED`}
+            </span>
+          </span>
+        </div>
+
+        <div className="lego-control-actions">
+          {/* Restart / Clear to Play Button */}
+          <button
+            type="button"
+            className="lego-action-btn lego-action-btn-restart"
+            onClick={handleRestart}
+            title="Clear the stack so you can experiment and build your own custom architecture"
+          >
+            <RotateCcw size={15} />
+            <span>RESTART & PLAY (NEW STACK)</span>
+          </button>
+
+          {/* Load Calvin's Stack Button */}
+          <button
+            type="button"
+            className={`lego-action-btn lego-action-btn-restore ${isDefaultStack ? 'is-active' : ''}`}
+            onClick={handleLoadDefault}
+            title="Restore Calvin's complete production tech stack"
+          >
+            <Layers size={15} />
+            <span>RESTORE MY STACK</span>
+          </button>
+        </div>
+      </div>
+
       <div className="lego-tech-layout">
         {/* LEFT: Available Blocks */}
         <div className="lego-tech-palette">
           <div className="lego-palette-label">
             <span className="lego-palette-dot" />
-            <span>CLICK TO EQUIP DISCIPLINES</span>
+            <span>
+              DISCIPLINE ARSENAL ({unequippedModules.length} AVAILABLE · CLICK TO SNAP ONTO TOWER)
+            </span>
           </div>
           <div className="lego-palette-grid">
             {unequippedModules.map((module) => {
@@ -396,6 +479,29 @@ const LegoTechStack = ({ modules = MODULES, className = '' }) => {
 
         {/* RIGHT: Profile Tower */}
         <div className="lego-tech-tower-area">
+          {/* Quick Tower Top Action Header */}
+          <div className="lego-tower-header">
+            <div className="lego-tower-header-info">
+              <span className="lego-tower-header-label">ARCHITECTURE TOWER</span>
+              <span className="lego-tower-header-status">
+                {isDefaultStack
+                  ? "Calvin's Production Stack"
+                  : equippedIds.length === 0
+                  ? "Empty Pedestal"
+                  : "Custom Architecture"}
+              </span>
+            </div>
+            <button
+              type="button"
+              className="lego-tower-quick-btn"
+              onClick={equippedIds.length === 0 ? handleLoadDefault : handleRestart}
+              title={equippedIds.length === 0 ? "Restore Calvin's default stack" : "Clear stack and play with custom blocks"}
+            >
+              <RotateCcw size={13} />
+              <span>{equippedIds.length === 0 ? "LOAD DEFAULT" : "CLEAR & PLAY"}</span>
+            </button>
+          </div>
+
           <div className="lego-tower-scale">
             <motion.div
               animate={controls}
@@ -465,11 +571,15 @@ const LegoTechStack = ({ modules = MODULES, className = '' }) => {
                     <User size={24} strokeWidth={1.8} color="white" />
                   </div>
                   <div className="lego-profile-info">
-                    <h3 className="lego-profile-name">My Stack</h3>
+                    <h3 className="lego-profile-name">
+                      {isDefaultStack ? "My Stack" : equippedModules.length > 0 ? "Custom Stack" : "My Stack"}
+                    </h3>
                     <p className="lego-profile-xp">
                       {equippedModules.length === 0
-                        ? 'SELECT DISCIPLINES'
-                        : `LEVEL: ${equippedModules.length * 10}XP`}
+                        ? 'SELECT DISCIPLINES TO BUILD'
+                        : isDefaultStack
+                        ? 'VERIFIED PRODUCTION · LEVEL 118XP'
+                        : `SANDBOX BUILD · ${equippedModules.length * 10}XP`}
                     </p>
                   </div>
                 </div>
@@ -479,15 +589,28 @@ const LegoTechStack = ({ modules = MODULES, className = '' }) => {
 
           {/* CTA */}
           <div className="lego-cta-area">
-            <AnimatePresence>
-              {equippedModules.length > 0 && (
+            <AnimatePresence mode="wait">
+              {equippedModules.length > 0 ? (
                 <motion.div
-                  initial={{ opacity: 0, y: 20, scale: 0.9 }}
+                  key="modules-list"
+                  initial={{ opacity: 0, y: 12, scale: 0.95 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -20, scale: 0.9 }}
+                  exit={{ opacity: 0, y: -12, scale: 0.95 }}
+                  transition={{ duration: 0.25 }}
                   className="lego-cta-text"
                 >
                   {equippedModules.map((m) => m.name).join(' · ')}
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="empty-hint"
+                  initial={{ opacity: 0, y: 12, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -12, scale: 0.95 }}
+                  transition={{ duration: 0.25 }}
+                  className="lego-cta-text empty-hint"
+                >
+                  ⚡ CANVAS CLEARED · CLICK ANY DISCIPLINE ON THE LEFT TO ASSEMBLE YOUR DREAM ARCHITECTURE
                 </motion.div>
               )}
             </AnimatePresence>

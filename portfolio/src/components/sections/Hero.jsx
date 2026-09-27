@@ -52,9 +52,7 @@ const Hero = () => {
       });
       gsap.set('.name-char', { y: 150, opacity: 0 });
       gsap.set('.hero-reveal-element', { opacity: 0, y: 20 });
-      
-      // Hide the secondary elements that will appear ON SCROLL
-      gsap.set('.entry-disciplines, .entry-linkedin-btn, .entry-telemetry', { opacity: 0 });
+      gsap.set('.entry-disciplines, .entry-actions-row', { opacity: 0, y: 15 });
 
       // Synchronized entrance animation
       const startAnimation = () => {
@@ -84,7 +82,14 @@ const Hero = () => {
             duration: 0.8,
             stagger: 0.1,
             ease: 'power2.out'
-          }, 0.7);
+          }, 0.6)
+          .to('.entry-disciplines, .entry-actions-row', {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            stagger: 0.12,
+            ease: 'power2.out'
+          }, 0.8);
       };
 
       if (imageLoaded) {
@@ -107,28 +112,29 @@ const Hero = () => {
 
         tlScroll
           // Phase 1: Entry Content moves up and fades out
-          .to('.entry-content-col', { opacity: 0, y: -100, duration: 1 }, 0)
+          .to('.entry-content-col', { opacity: 0, y: -90, duration: 1 }, 0)
           
           // Phase 2: Person Content moves up and fades in
           .fromTo('.person-content-col', 
-            { opacity: 0, y: 100 }, 
-            { opacity: 1, y: 0, duration: 1 }, 0.5)
+            { opacity: 0, y: 90 }, 
+            { opacity: 1, y: 0, duration: 1 }, 0.4)
             
           // Add a pause at the end so you can read the bio before it unpins
-          .to({}, { duration: 0.5 });
+          .to({}, { duration: 0.8 });
 
         ScrollTrigger.create({
           trigger: containerRef.current,
           pin: stageRef.current,
           start: 'top top',
-          end: '+=200%',
-          scrub: 1,
+          end: '+=160%',
+          scrub: 1.2,
           animation: tlScroll,
-          pinSpacing: true
+          pinSpacing: true,
+          invalidateOnRefresh: true,
         });
       } else {
         // Fallback for mobile: ensure disciplines and action buttons are visible cleanly
-        gsap.to('.entry-disciplines, .entry-linkedin-btn', { opacity: 1, y: 0, duration: 0.6, delay: 0.2 });
+        gsap.to('.entry-disciplines, .entry-actions-row', { opacity: 1, y: 0, duration: 0.6, delay: 0.2 });
       }
 
     }, containerRef);
@@ -168,21 +174,6 @@ const Hero = () => {
     <div className="hero-scroll-container" ref={containerRef}>
       <section className="entry-scene" id="person" ref={stageRef}>
         
-        {/* Telemetry (Appears on scroll) */}
-        <div className="entry-telemetry" style={{ transform: 'translateX(50px)' }}>
-          <div className="telemetry-row">
-            <div className="telemetry-dot" />
-            <span>F1.TM_SYS.ACTIVE</span>
-          </div>
-          <div className="telemetry-row">
-            <div className="telemetry-dot" />
-            <span>FPS: 60.00 / RENDERING</span>
-          </div>
-          <div className="telemetry-row">
-            <div className="telemetry-dot" />
-            <span>V-SYNC: ENGAGED</span>
-          </div>
-        </div>
 
         <div className="entry-grid">
           
@@ -270,24 +261,30 @@ const Hero = () => {
               </div>
             </div>
 
-            {/* Person Bio Slot (Fades In) */}
+            {/* Person Bio Slot (Fades In on Scroll) */}
             <div className="person-content-col">
-              <div className="person-header" style={{ marginBottom: '2rem' }}>
-                <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '3rem', color: 'var(--color-gold)', margin: 0, lineHeight: 1 }}>THE PERSON</h2>
-                <p className="entry-label" style={{ margin: '0.5rem 0 0 0' }}>PROFILE // CLASSIFIED</p>
+              <div className="person-header" style={{ marginBottom: '1.25rem' }}>
+                <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2.2rem, 3.8vw, 3.2rem)', color: 'var(--color-gold)', margin: 0, lineHeight: 1 }}>THE PERSON</h2>
+                <p className="entry-label" style={{ margin: '0.4rem 0 0 0', letterSpacing: '0.15em' }}>PROFILE // CLASSIFIED</p>
               </div>
               
-              <div className="person-bio" style={{ marginBottom: '3rem' }}>
+              <div className="person-bio" style={{ marginBottom: '1.8rem' }}>
                 {profile.bio.map((para, i) => (
-                  <p key={i} className="bio-paragraph" style={{ fontFamily: 'var(--font-body)', fontSize: '1.1rem', color: 'var(--color-silver)', lineHeight: 1.6, marginBottom: '1.5rem', maxWidth: '600px' }}>{para}</p>
+                  <p key={i} className="bio-paragraph" style={{ fontFamily: 'var(--font-body)', fontSize: 'clamp(0.92rem, 1.1vw, 1.05rem)', color: 'var(--color-silver)', lineHeight: 1.6, marginBottom: '0.9rem', maxWidth: '620px' }}>
+                    {para}
+                  </p>
                 ))}
               </div>
 
-              <div className="person-stats" style={{ display: 'flex', gap: '3rem', marginBottom: '3rem', flexWrap: 'wrap' }}>
+              <div className="person-stats" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1.2rem 2.5rem', maxWidth: '520px' }}>
                 {profile.stats.map((stat, i) => (
                   <div key={i} className="stat-block">
-                    <span className="stat-value" style={{ display: 'block', fontFamily: 'var(--font-mono)', fontSize: '2rem', color: 'var(--color-white)', marginBottom: '0.5rem' }}>{stat.value}</span>
-                    <span className="stat-label" style={{ display: 'block', fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--color-graphite)' }}>{stat.label}</span>
+                    <span className="stat-value" style={{ display: 'block', fontFamily: 'var(--font-mono)', fontSize: 'clamp(1.6rem, 2.4vw, 2.2rem)', color: i === 2 ? 'var(--color-gold)' : 'var(--color-white)', fontWeight: 'bold', marginBottom: '0.25rem' }}>
+                      {stat.value}
+                    </span>
+                    <span className="stat-label" style={{ display: 'block', fontFamily: 'var(--font-mono)', fontSize: '0.72rem', color: 'var(--color-graphite)', letterSpacing: '0.12em' }}>
+                      {stat.label}
+                    </span>
                   </div>
                 ))}
               </div>

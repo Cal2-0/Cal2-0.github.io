@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import '../../styles/scenes/layeredText.css';
 
@@ -24,9 +24,21 @@ const LayeredText = ({
 }) => {
   const containerRef = useRef(null);
   const timelineRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const activeLineHeight = isMobile ? lineHeightMd : lineHeight;
+  const activeFontSize = isMobile ? fontSizeMd : fontSize;
 
   const calculateTranslateX = (index) => {
-    const baseOffset = 35;
+    const baseOffset = isMobile ? 18 : 35;
     const centerIndex = Math.floor(lines.length / 2);
     return (index - centerIndex) * baseOffset;
   };
@@ -37,8 +49,9 @@ const LayeredText = ({
     const container = containerRef.current;
     const paragraphs = container.querySelectorAll('p');
 
-    const isMobile = window.innerWidth < 768;
-    const yShift = isMobile ? -lineHeightMd : -lineHeight;
+    const yShift = -activeLineHeight;
+
+    if (timelineRef.current) timelineRef.current.kill();
 
     timelineRef.current = gsap.timeline({ paused: true });
 
@@ -65,13 +78,13 @@ const LayeredText = ({
       container.removeEventListener('mouseleave', handleMouseLeave);
       if (timelineRef.current) timelineRef.current.kill();
     };
-  }, [lines, lineHeight, lineHeightMd]);
+  }, [lines, activeLineHeight]);
 
   return (
     <div
       ref={containerRef}
       className={`layered-text-container ${className}`}
-      style={{ fontSize }}
+      style={{ fontSize: activeFontSize }}
     >
       <ul className="layered-text-list">
         {lines.map((line, index) => {
@@ -83,7 +96,7 @@ const LayeredText = ({
               key={index}
               className="layered-text-item"
               style={{
-                height: `${lineHeight}px`,
+                height: `${activeLineHeight}px`,
                 transform: `translateX(${translateX}px) skew(${isEven ? '60deg, -30deg' : '0deg, -30deg'}) scaleY(${isEven ? 0.66667 : 1.33333})`,
               }}
             >
@@ -96,8 +109,8 @@ const LayeredText = ({
                   }
                 }}
                 style={{
-                  height: `${lineHeight}px`,
-                  lineHeight: `${lineHeight}px`,
+                  height: `${activeLineHeight}px`,
+                  lineHeight: `${activeLineHeight}px`,
                   pointerEvents: line.onClickTop ? 'auto' : 'inherit',
                 }}
               >
@@ -112,8 +125,8 @@ const LayeredText = ({
                   }
                 }}
                 style={{
-                  height: `${lineHeight}px`,
-                  lineHeight: `${lineHeight}px`,
+                  height: `${activeLineHeight}px`,
+                  lineHeight: `${activeLineHeight}px`,
                   pointerEvents: line.onClickBottom ? 'auto' : 'inherit',
                 }}
               >

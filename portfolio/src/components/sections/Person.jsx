@@ -92,9 +92,9 @@ const Person = () => {
           <span className="dossier-label">PROFILE // CLASSIFIED</span>
         </div>
 
-        {/* ── Short Bio ──────────────────────────────────────────── */}
+        {/* ── Short Bio (Personal Bio with Magnifying Words) ── */}
         <div className="person-bio-block">
-          {profile.bio.map((paragraph, i) => {
+          {(profile.personalBio || profile.bio).map((paragraph, i) => {
             const keywords = ['machines', 'systems', 'architect', 'explorer', 'Cybersecurity', 'NMAMIT', 'Calvin'];
             return (
               <p key={i} className={`person-bio-paragraph ${i === 0 ? 'bio-lead' : ''}`}>

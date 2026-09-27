@@ -1,6 +1,6 @@
 /* Scene 03: The Archive (Featured Projects Accordion) */
 .archive-scene {
-  padding: var(--space-8) 0;
+  padding: var(--space-6) 0 var(--space-4);
   background-color: var(--color-bg-dark);
   position: relative;
   z-index: 5;

@@ -1,6 +1,6 @@
 /* Scene 05: Field Evidence */
 .evidence-scene {
-  padding: var(--space-8) 0;
+  padding: var(--space-4) 0 var(--space-4);
   background-color: var(--color-bg-dark);
 }
 
@@ -97,5 +97,27 @@
   .evidence-grid {
     grid-template-columns: 1fr;
     gap: var(--space-4);
+  }
+}
+
+@media (max-width: 640px) {
+  .evidence-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+
+  .evidence-img-wrapper {
+    height: 210px;
+  }
+}
+
+@media (max-width: 480px) {
+  .evidence-img-wrapper {
+    height: 180px;
+  }
+
+  .evidence-content {
+    padding: var(--space-3);
   }
 }

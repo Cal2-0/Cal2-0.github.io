@@ -4,7 +4,7 @@
 
 .explore-hyper-section {
   position: relative;
-  padding: var(--space-6) 0 var(--space-8);
+  padding: clamp(80px, 10vh, 130px) 0 var(--space-8);
   background: radial-gradient(
     ellipse at 50% 80%,
     rgba(139, 92, 246, 0.06) 0%,
@@ -37,8 +37,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: var(--space-6);
-  opacity: 0.8;
+  padding-top: clamp(40px, 6vh, 80px);
+  margin-bottom: clamp(60px, 8vh, 100px);
+  opacity: 0.85;
   pointer-events: auto;
 }
 

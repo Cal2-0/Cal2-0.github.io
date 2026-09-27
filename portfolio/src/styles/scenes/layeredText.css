@@ -27,6 +27,8 @@
 .layered-text-item {
   overflow: hidden;
   position: relative;
+  transform-origin: center center;
+  will-change: transform;
 }
 
 .layered-text-line {
