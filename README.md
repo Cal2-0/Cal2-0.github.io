@@ -152,6 +152,17 @@ npm run dev
 
 ---
 
+## 🕵️‍♂️ Beyond the Terminal
+
+If you're visiting from LinkedIn or a recruiter wondering who the person behind the commits is—here's the unredacted context:
+
+- 🏎️ **F1 & Automotive:** I study Formula 1 telemetry the same way I study malware. The engineering precision required to shave off 0.01 seconds on a track is the exact same mindset I bring to optimizing deep-tech architectures.
+- ✍️ **Writing & Field Notes:** I don't just build; I document. I write heavily on cybersecurity, AI, and systems design. Check out my [Field Notes](https://calvindsouza.is-a.dev/writing) to see how I break down complex engineering problems.
+- 🎨 **Visual Craft:** I believe security tools don't have to be ugly. I spend an unreasonable amount of time studying 35mm film grading, color theory, and UI/UX to ensure everything I build looks as good as it functions.
+- 🗃️ **The Classified Vault:** There are things I don't put on my standard resume. My portfolio has a hidden vault (accessible only if you know where to look or what to type in the terminal). It contains 9 classified dossiers about my ultimate ambitions, midnight flow states, and my dream hypercar garage. 
+
+---
+
 ## 📊 GitHub Analytics
 
 <p align="center">
