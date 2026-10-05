@@ -29,8 +29,8 @@ const ProjectSpread = ({ project }) => {
 
           <div className="project-tech-stack">
             {project.tech.map((t, idx) => {
-              // Rotation between -5 and 5
-              const rot = (Math.random() * 10 - 5).toFixed(1);
+              // Deterministic rotation between -5 and 5 based on index
+              const rot = (((idx * 13) % 11) - 5).toFixed(1);
               return (
                 <Sticker 
                   key={idx} 

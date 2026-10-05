@@ -20,6 +20,7 @@ export const Sticker = ({
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const getTechColor = (tech) => {
   const colors = {
     'Python': '#4B8BBE',

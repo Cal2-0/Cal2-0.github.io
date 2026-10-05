@@ -4,6 +4,7 @@ import {
   Film, Car, UserCheck, Search, Filter, CheckCircle2, Zap, Terminal, Eye, EyeOff, ThumbsUp
 } from 'lucide-react';
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const CONFESSIONS_DATA = [
   {
     id: "ambition",

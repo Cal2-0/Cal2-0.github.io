@@ -296,8 +296,10 @@ LOCATION:   Earth (Usually)`;
       case 'do':
         if (args[1] === 'a' && args[2] === 'barrel' && args[3] === 'roll') {
           output = 'Executing barrel roll...';
-          document.body.style.transition = 'transform 1s ease-in-out';
-          document.body.style.transform = 'rotate(360deg)';
+          setTimeout(() => {
+            document.body.style.transition = 'transform 1s ease-in-out';
+            document.body.style.transform = 'rotate(360deg)';
+          }, 0);
           setTimeout(() => {
             document.body.style.transition = 'none';
             document.body.style.transform = 'rotate(0deg)';
@@ -477,8 +479,8 @@ LOCATION:   Earth (Usually)`;
           onWheel={(e) => e.stopPropagation()}
           onTouchMove={(e) => e.stopPropagation()}
         >
-          {history.map((item) => (
-            <div key={item.id || Math.random()} className="terminal-entry">
+          {history.map((item, idx) => (
+            <div key={item.id ?? idx} className="terminal-entry">
               {item.command && (
                 <div className="terminal-line terminal-line-command">
                   <span className="terminal-prompt">root@bureau:~$</span>
