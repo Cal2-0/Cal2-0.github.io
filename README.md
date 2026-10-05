@@ -5,7 +5,7 @@
 
 <br>
 
-*Yo, what's up! Welcome to my GitHub. I'm Calvin, a 19-year-old engineer obsessing over cybersecurity, applied AI, and building extremely fast, beautiful software. When I'm not dissecting malware or tweaking neural networks, I'm probably talking about Formula 1 telemetry, Christopher Nolan movies, or designing 35mm film LUTs.*
+*Yo, what's up! Welcome to my GitHub. I'm Calvin, a 20-year-old engineer obsessing over cybersecurity, applied AI, and building extremely fast, beautiful software. When I'm not dissecting malware or tweaking neural networks, I'm probably talking about Formula 1 telemetry, Christopher Nolan movies, or designing 35mm film LUTs.*
 
 <br>
 
