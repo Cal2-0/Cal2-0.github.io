@@ -1,8 +1,19 @@
+<div align="center">
+
+# ⚡ CALVIN D'SOUZA ⚡
+### Cybersecurity Engineer | AI Researcher | Systems Architect
+
+<br>
+
+*Yo, what's up! Welcome to my GitHub. I'm Calvin, a 19-year-old engineer obsessing over cybersecurity, applied AI, and building extremely fast, beautiful software. When I'm not dissecting malware or tweaking neural networks, I'm probably talking about Formula 1 telemetry, Christopher Nolan movies, or designing 35mm film LUTs.*
+
+<br>
+
 <p align="center">
-  <a href="https://calvindsouza.is-a.dev/"><img src="https://img.shields.io/badge/🌐_PORTFOLIO_WEBSITE-calvindsouza.is--a.dev-C5A059?style=for-the-badge&logo=google-chrome&logoColor=13111C&labelColor=1F1C2E" alt="Portfolio Website"/></a>
-  <a href="mailto:calvinja320@gmail.com"><img src="https://img.shields.io/badge/Email-calvinja320%40gmail.com-1F1C2E?style=for-the-badge&logo=gmail&logoColor=EAE0D5&labelColor=13111C" alt="Email"/></a>
-  <a href="https://linkedin.com/in/calvin-jude-dsouza"><img src="https://img.shields.io/badge/LinkedIn-calvin--jude--dsouza-1F1C2E?style=for-the-badge&logo=linkedin&logoColor=EAE0D5&labelColor=13111C" alt="LinkedIn"/></a>
-  <a href="https://github.com/Cal2-0"><img src="https://img.shields.io/badge/GitHub-@Cal2--0-1F1C2E?style=for-the-badge&logo=github&logoColor=EAE0D5&labelColor=13111C" alt="GitHub"/></a>
+  <a href="https://calvindsouza.is-a.dev/"><img src="https://img.shields.io/badge/PORTFOLIO-calvindsouza.is--a.dev-C5A059?style=for-the-badge&logo=google-chrome&logoColor=13111C&labelColor=1F1C2E" alt="Portfolio"/></a>
+  <a href="mailto:calvinja320@gmail.com"><img src="https://img.shields.io/badge/EMAIL-calvinja320%40gmail.com-1F1C2E?style=for-the-badge&logo=gmail&logoColor=EAE0D5&labelColor=13111C" alt="Email"/></a>
+  <a href="https://linkedin.com/in/calvin-jude-dsouza"><img src="https://img.shields.io/badge/LINKEDIN-calvin--jude--dsouza-1F1C2E?style=for-the-badge&logo=linkedin&logoColor=EAE0D5&labelColor=13111C" alt="LinkedIn"/></a>
+  <a href="https://instagram.com/_______.cal"><img src="https://img.shields.io/badge/INSTAGRAM-@_______.cal-1F1C2E?style=for-the-badge&logo=instagram&logoColor=EAE0D5&labelColor=13111C" alt="Instagram"/></a>
 </p>
 
 <p align="center">
@@ -10,6 +21,8 @@
   <img src="https://img.shields.io/badge/B.Tech-Cybersecurity%20(CGPA%209.26)-13111C?style=flat-square&logo=graduation-cap&logoColor=A89FBF"/>
   <img src="https://img.shields.io/badge/Focus-Forensics%20%7C%20Applied%20AI%20%7C%20PQC-13111C?style=flat-square&logo=code&logoColor=C5A059"/>
 </p>
+
+</div>
 
 ---
 
@@ -23,7 +36,7 @@ B.Tech Computer Science (Cybersecurity), NMAM Institute of Technology — Class 
 - 🔬 **Applied AI Research:** Frequency-domain signal analysis for deepfake detection, interpretable model decisions
 - 🛡️ **Forensics & Intelligence:** On-chain behavioral clustering, transaction trace analysis, network packet dissection
 - 🔐 **Cryptography:** Post-quantum key encapsulation (ML-KEM-1024), chaos steganography, zero-trust auth engines
-- 📬 Open to internships and security research collaborations — see contact links above
+- 📬 **Let's Connect:** Open to internships, security research collaborations, or just talking tech — see contact links above.
 
 ---
 
